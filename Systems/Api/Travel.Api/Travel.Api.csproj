@@ -4,7 +4,20 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <InvariantGlobalization>true</InvariantGlobalization>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Configuration\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Serilog" Version="3.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Services\Travel.Services.Logger\Travel.Services.Logger.csproj" />
+    <ProjectReference Include="..\..\..\Services\Travel.Services.Settings\Travel.Services.Settings.csproj" />
+    <ProjectReference Include="..\..\..\Shared\Travel.Common\Travel.Common.csproj" />
+  </ItemGroup>
 
 </Project>

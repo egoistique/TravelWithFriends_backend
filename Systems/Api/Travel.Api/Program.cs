@@ -1,9 +1,24 @@
+using Travel.Api;
+using Travel.Api.Configuration;
+using Travel.Services.Settings;
+using Travel.Settings;
+
+var mainSettings = Settings.Load<MainSettings>("Main");
+var logSettings = Settings.Load<LogSettings>("Log");
+var swaggerSettings = Settings.Load<SwaggerSettings>("Swagger");
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+builder.AddAppLogger(mainSettings, logSettings);
 
-builder.Services.AddControllers();
+builder.Services.AddAppAutoMappers();
+builder.Services.AddAppValidator();
+builder.Services.AddAppHealthChecks();
 
+
+builder.Services.RegisterServices();
+builder.Services.AddAppCors();
+builder.Services.AddAppControllerAndViews();
 
 
 
@@ -13,12 +28,9 @@ builder.Services.AddControllers();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-
 app.UseHttpsRedirection();
-
-app.UseAuthorization();
-
-app.MapControllers();
+app.UseAppHealthChecks();
+app.UseAppCors();
+app.UseAppControllerAndViews();
 
 app.Run();
