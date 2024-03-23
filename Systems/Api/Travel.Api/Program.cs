@@ -1,5 +1,6 @@
 using Travel.Api;
 using Travel.Api.Configuration;
+using Travel.Services.Logger;
 using Travel.Services.Settings;
 using Travel.Settings;
 
@@ -11,17 +12,25 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.AddAppLogger(mainSettings, logSettings);
 
-builder.Services.AddAppAutoMappers();
-builder.Services.AddAppValidator();
-builder.Services.AddAppHealthChecks();
+var services = builder.Services;
 
+services.AddHttpContextAccessor();
 
-builder.Services.RegisterServices();
-builder.Services.AddAppCors();
-builder.Services.AddAppControllerAndViews();
+services.AddAppCors();
 
+services.AddAppHealthChecks();
 
+services.AddAppVersioning();
 
+services.AddAppSwagger(mainSettings, swaggerSettings);
+
+services.AddAppAutoMappers();
+
+services.AddAppValidator();
+
+services.AddAppControllerAndViews();
+
+services.RegisterServices(builder.Configuration);
 
 
 
@@ -29,8 +38,19 @@ builder.Services.AddAppControllerAndViews();
 var app = builder.Build();
 
 app.UseHttpsRedirection();
-app.UseAppHealthChecks();
+
 app.UseAppCors();
+
+app.UseAppHealthChecks();
+
+app.UseAppSwagger();
+
 app.UseAppControllerAndViews();
 
+var logger = app.Services.GetRequiredService<IAppLogger>();
+
+logger.Information("The Travel API has started");
+
 app.Run();
+
+logger.Information("The Travel API has stopped");

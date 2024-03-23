@@ -19,7 +19,7 @@ public static class LoggerConfiguration
 
         // Base configuration
         loggerConfiguration
-            //.Enrich.WithCorrelationIdHeader()
+            .Enrich.WithCorrelationIdHeader()
             .Enrich.FromLogContext();
 
         // Log level

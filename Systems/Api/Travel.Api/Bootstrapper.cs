@@ -4,7 +4,7 @@ using Travel.Services.Logger;
 
 public static class Bootstrapper
 {
-    public static IServiceCollection RegisterServices (this IServiceCollection service)
+    public static IServiceCollection RegisterServices (this IServiceCollection service, IConfiguration configuration = null)
     {
         service
             .AddMainSettings()
