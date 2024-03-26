@@ -3,6 +3,7 @@ using Travel.Api.Configuration;
 using Travel.Services.Logger;
 using Travel.Services.Settings;
 using Travel.Settings;
+using Travel.Context;
 
 var mainSettings = Settings.Load<MainSettings>("Main");
 var logSettings = Settings.Load<LogSettings>("Log");
@@ -15,6 +16,8 @@ builder.AddAppLogger(mainSettings, logSettings);
 var services = builder.Services;
 
 services.AddHttpContextAccessor();
+
+services.AddAppDbContext(builder.Configuration);
 
 services.AddAppCors();
 
@@ -37,6 +40,8 @@ services.RegisterServices(builder.Configuration);
 
 var app = builder.Build();
 
+var logger = app.Services.GetRequiredService<IAppLogger>();
+
 app.UseHttpsRedirection();
 
 app.UseAppCors();
@@ -47,7 +52,9 @@ app.UseAppSwagger();
 
 app.UseAppControllerAndViews();
 
-var logger = app.Services.GetRequiredService<IAppLogger>();
+DbInitializer.Execute(app.Services);
+
+
 
 logger.Information("The Travel API has started");
 

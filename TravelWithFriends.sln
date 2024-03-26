@@ -15,13 +15,21 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Api", "Api", "{9BC66BBF-4EC
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Identity", "Identity", "{693EAFCA-0502-441B-92AC-5D64467EE592}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Travel.Common", "Shared\Travel.Common\Travel.Common.csproj", "{7DE79005-4F56-40FA-A9E6-E88575B92747}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Travel.Common", "Shared\Travel.Common\Travel.Common.csproj", "{7DE79005-4F56-40FA-A9E6-E88575B92747}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Travel.Api", "Systems\Api\Travel.Api\Travel.Api.csproj", "{2A17AB17-9E2F-4788-95EF-B70AD223FB22}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Travel.Api", "Systems\Api\Travel.Api\Travel.Api.csproj", "{2A17AB17-9E2F-4788-95EF-B70AD223FB22}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Travel.Services.Settings", "Services\Travel.Services.Settings\Travel.Services.Settings.csproj", "{23493D69-21E7-4865-A055-DF978F8E338C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Travel.Services.Settings", "Services\Travel.Services.Settings\Travel.Services.Settings.csproj", "{23493D69-21E7-4865-A055-DF978F8E338C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Travel.Services.Logger", "Services\Travel.Services.Logger\Travel.Services.Logger.csproj", "{F3EC8E6D-EFC1-4CFD-8AD5-CCE7C75DE9EF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Travel.Services.Logger", "Services\Travel.Services.Logger\Travel.Services.Logger.csproj", "{F3EC8E6D-EFC1-4CFD-8AD5-CCE7C75DE9EF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Travel.Context.Entities", "Data\Travel.Context.Entities\Travel.Context.Entities.csproj", "{638A4EF6-B678-4EA7-B172-DF89A9617972}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Travel.Context", "Data\Travel.Context\Travel.Context.csproj", "{7506DDB6-DE51-4228-9082-7EC90AE696FF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Travel.Context.Migrations", "Travel.Context.Migrations", "{51D204E3-D4E3-4380-A7A4-55BD978386E7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Travel.Context.Migrations.PgSql", "Data\Travel.Context.Migrations\Travel.Context.Migrations.PgSql\Travel.Context.Migrations.PgSql.csproj", "{E07CB5C3-2D9C-401C-B27A-B52CB90D6293}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +53,18 @@ Global
 		{F3EC8E6D-EFC1-4CFD-8AD5-CCE7C75DE9EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F3EC8E6D-EFC1-4CFD-8AD5-CCE7C75DE9EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F3EC8E6D-EFC1-4CFD-8AD5-CCE7C75DE9EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{638A4EF6-B678-4EA7-B172-DF89A9617972}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{638A4EF6-B678-4EA7-B172-DF89A9617972}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{638A4EF6-B678-4EA7-B172-DF89A9617972}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{638A4EF6-B678-4EA7-B172-DF89A9617972}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7506DDB6-DE51-4228-9082-7EC90AE696FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7506DDB6-DE51-4228-9082-7EC90AE696FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7506DDB6-DE51-4228-9082-7EC90AE696FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7506DDB6-DE51-4228-9082-7EC90AE696FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E07CB5C3-2D9C-401C-B27A-B52CB90D6293}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E07CB5C3-2D9C-401C-B27A-B52CB90D6293}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E07CB5C3-2D9C-401C-B27A-B52CB90D6293}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E07CB5C3-2D9C-401C-B27A-B52CB90D6293}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -56,6 +76,10 @@ Global
 		{2A17AB17-9E2F-4788-95EF-B70AD223FB22} = {9BC66BBF-4ECF-4944-A76C-56D0387D3397}
 		{23493D69-21E7-4865-A055-DF978F8E338C} = {975F07E7-293E-41B6-B0DA-12F47D5B0A81}
 		{F3EC8E6D-EFC1-4CFD-8AD5-CCE7C75DE9EF} = {975F07E7-293E-41B6-B0DA-12F47D5B0A81}
+		{638A4EF6-B678-4EA7-B172-DF89A9617972} = {174FE9EF-2801-4747-8040-05B1BCDD4ADF}
+		{7506DDB6-DE51-4228-9082-7EC90AE696FF} = {174FE9EF-2801-4747-8040-05B1BCDD4ADF}
+		{51D204E3-D4E3-4380-A7A4-55BD978386E7} = {174FE9EF-2801-4747-8040-05B1BCDD4ADF}
+		{E07CB5C3-2D9C-401C-B27A-B52CB90D6293} = {51D204E3-D4E3-4380-A7A4-55BD978386E7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9CBA77C4-9CB5-41EC-A933-F2B415B2BF35}

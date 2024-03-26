@@ -12,6 +12,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.3">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Serilog" Version="3.1.1" />
     <PackageReference Include="Serilog.Enrichers.CorrelationId" Version="3.0.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
@@ -22,6 +26,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Data\Travel.Context.Migrations\Travel.Context.Migrations.PgSql\Travel.Context.Migrations.PgSql.csproj" />
+    <ProjectReference Include="..\..\..\Data\Travel.Context\Travel.Context.csproj" />
     <ProjectReference Include="..\..\..\Services\Travel.Services.Logger\Travel.Services.Logger.csproj" />
     <ProjectReference Include="..\..\..\Services\Travel.Services.Settings\Travel.Services.Settings.csproj" />
     <ProjectReference Include="..\..\..\Shared\Travel.Common\Travel.Common.csproj" />
