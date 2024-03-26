@@ -1,6 +1,7 @@
 ﻿namespace Travel.Api;
 using Travel.Services.Settings;
 using Travel.Services.Logger;
+using Travel.Context.Seeder;
 
 public static class Bootstrapper
 {
@@ -10,8 +11,9 @@ public static class Bootstrapper
             .AddMainSettings()
             .AddSwaggerSettings()
             .AddLogSettings()
-            .AddAppLogger();
-
+            .AddAppLogger()
+            .AddDbSeeder();
+           // .AddUserAccountService();
         return service;
     }
 }

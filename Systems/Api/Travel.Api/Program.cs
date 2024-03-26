@@ -4,6 +4,7 @@ using Travel.Services.Logger;
 using Travel.Services.Settings;
 using Travel.Settings;
 using Travel.Context;
+using Travel.Context.Seeder;
 
 var mainSettings = Settings.Load<MainSettings>("Main");
 var logSettings = Settings.Load<LogSettings>("Log");
@@ -54,6 +55,7 @@ app.UseAppControllerAndViews();
 
 DbInitializer.Execute(app.Services);
 
+DbSeeder.Execute(app.Services);
 
 
 logger.Information("The Travel API has started");
