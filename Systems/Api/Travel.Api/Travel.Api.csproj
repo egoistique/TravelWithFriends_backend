@@ -31,7 +31,9 @@
     <ProjectReference Include="..\..\..\Data\Travel.Context\Travel.Context.csproj" />
     <ProjectReference Include="..\..\..\Services\Travel.Services.Logger\Travel.Services.Logger.csproj" />
     <ProjectReference Include="..\..\..\Services\Travel.Services.Settings\Travel.Services.Settings.csproj" />
+    <ProjectReference Include="..\..\..\Services\Travel.Services.Trips\Travel.Services.Trips.csproj" />
     <ProjectReference Include="..\..\..\Shared\Travel.Common\Travel.Common.csproj" />
+    <ProjectReference Include="..\Travel.Api.Settings\Travel.Api.Settings.csproj" />
   </ItemGroup>
 
 </Project>

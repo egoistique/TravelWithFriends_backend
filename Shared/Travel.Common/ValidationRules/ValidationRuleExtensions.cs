@@ -4,7 +4,7 @@ using FluentValidation;
 
 public static class ValidationRuleExtensions
 {
-    public static IRuleBuilderOptions<T, string> BookTitle<T>(this IRuleBuilder<T, string> ruleBuilder)
+    public static IRuleBuilderOptions<T, string> TripTitle<T>(this IRuleBuilder<T, string> ruleBuilder)
     {
         return ruleBuilder
             .NotEmpty().WithMessage("Title is required")
