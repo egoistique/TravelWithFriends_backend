@@ -4,6 +4,7 @@ using Travel.Services.Logger;
 using Travel.Context.Seeder;
 using Travel.Api.Settings;
 using Travel.Services.Trips;
+using Travel.Services.Activities;
 
 public static class Bootstrapper
 {
@@ -16,7 +17,8 @@ public static class Bootstrapper
             .AddAppLogger()
             .AddDbSeeder()
             .AddApiSpecialSettings()
-            .AddTripService();
+            .AddTripService()
+            .AddActivityService();
            // .AddUserAccountService();
         return service;
     }
