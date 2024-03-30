@@ -46,6 +46,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_docker", "_docker", "{587D
 		docker-compose.override.yml = docker-compose.override.yml
 		docker-compose.yml = docker-compose.yml
 		env.api = env.api
+		env.identity = env.identity
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Travel.Identity", "Systems\Identity\Travel.Identity\Travel.Identity.csproj", "{42BCCAC4-CA8C-4DEA-B4D1-DFB12A028542}"

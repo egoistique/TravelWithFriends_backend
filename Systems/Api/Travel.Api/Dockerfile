@@ -16,6 +16,7 @@ COPY ["Services/Travel.Services.Settings/Travel.Services.Settings.csproj", "Serv
 COPY ["Shared/Travel.Common/Travel.Common.csproj", "Shared/Travel.Common/"]
 COPY ["Data/Travel.Context.Entities/Travel.Context.Entities.csproj", "Data/Travel.Context.Entities/"]
 COPY ["Data/Travel.Context.Seeder/Travel.Context.Seeder.csproj", "Data/Travel.Context.Seeder/"]
+COPY ["Services/Travel.Services.UserAccount/Travel.Services.UserAccount.csproj", "Services/Travel.Services.UserAccount/"]
 COPY ["Services/Travel.Services.Activities/Travel.Services.Activities.csproj", "Services/Travel.Services.Activities/"]
 COPY ["Services/Travel.Services.Logger/Travel.Services.Logger.csproj", "Services/Travel.Services.Logger/"]
 COPY ["Services/Travel.Services.Trips/Travel.Services.Trips.csproj", "Services/Travel.Services.Trips/"]

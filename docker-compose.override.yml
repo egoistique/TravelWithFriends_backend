@@ -21,13 +21,13 @@ services:
     env_file:
       - env.api
 
-  # travel_identity:
-  #   ports:
-  #     - "10001:8080"
-  #   networks:
-  #     - shared_travel_net
-  #   env_file:
-  #     - env.identity
+  travel_identity:
+    ports:
+      - "10001:8080"
+    networks:
+      - shared_travel_net
+    env_file:
+      - env.identity
 
 networks:
   shared_travel_net:
