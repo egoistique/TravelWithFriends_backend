@@ -32,6 +32,8 @@ services.AddAppAutoMappers();
 
 services.AddAppValidator();
 
+services.AddAppAuth();
+
 services.AddAppControllerAndViews();
 
 services.RegisterServices(builder.Configuration);
@@ -50,6 +52,8 @@ app.UseAppCors();
 app.UseAppHealthChecks();
 
 app.UseAppSwagger();
+
+app.UseAppAuth();
 
 app.UseAppControllerAndViews();
 
