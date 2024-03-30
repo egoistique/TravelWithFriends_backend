@@ -9,7 +9,7 @@ namespace Travel.Services.Activities;
 
 public class CreateModel
 {
-    public Guid TripId { get; set; }
+    public Guid DayId { get; set; }
     public string Title { get; set; }
     public Guid CategoryId { get; set; }
     public string CategoryTitle { get; set; }
@@ -24,7 +24,7 @@ public class CreateModelProfile : Profile
     public CreateModelProfile()
     {
         CreateMap<CreateModel, Activiti>()
-            .ForMember(dest => dest.TripId, opt => opt.Ignore())
+            .ForMember(dest => dest.DayId, opt => opt.Ignore())
             .ForMember(dest => dest.CategoryId, opt => opt.Ignore())  
             .ForMember(dest => dest.PayerId, opt => opt.Ignore())
             .AfterMap<CreateModelActions>();
@@ -43,9 +43,9 @@ public class CreateModelProfile : Profile
         {
             using var db = contextFactory.CreateDbContext();
 
-            var trip = db.Trips.FirstOrDefault(x => x.Uid == source.TripId);
+            var day = db.Days.FirstOrDefault(x => x.Uid == source.DayId);
 
-            destination.TripId = trip.Id;           
+            destination.DayId = day.Id;           
             
             var category = db.Categories.FirstOrDefault(x => x.Uid == source.CategoryId);
 
@@ -64,14 +64,14 @@ public class CreateBookModelValidator : AbstractValidator<CreateModel>
     {
         RuleFor(x => x.Title).TripTitle();
 
-        RuleFor(x => x.TripId)
-            .NotEmpty().WithMessage("Trip is required")
+        RuleFor(x => x.DayId)
+            .NotEmpty().WithMessage("Day is required")
             .Must((id) =>
             {
                 using var context = contextFactory.CreateDbContext();
-                var found = context.Trips.Any(a => a.Uid == id);
+                var found = context.Days.Any(a => a.Uid == id);
                 return found;
-            }).WithMessage("Trip not found"); 
+            }).WithMessage("Day not found"); 
         
         RuleFor(x => x.CategoryId)
             .NotEmpty().WithMessage("Category is required")

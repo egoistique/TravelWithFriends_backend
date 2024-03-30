@@ -19,9 +19,10 @@ public class TripModel
     public string DateEnd { get; set; }
     public string City { get; set; }
     public string HotelTitle { get; set; }
+    public bool IsPublicated { get; set; }
 
     public IEnumerable<string> Participants { get; set; }
-    public IEnumerable<string> Activities { get; set; }
+    public IEnumerable<string> Days { get; set; }
 }
 
 public class TripModelProfile : Profile
@@ -34,7 +35,7 @@ public class TripModelProfile : Profile
             .ForMember(dest => dest.CreatorId, opt => opt.Ignore())
             .ForMember(dest => dest.CreatorName, opt => opt.Ignore())
             .ForMember(dest => dest.Participants, opt => opt.Ignore())
-            .ForMember(dest => dest.Activities, opt => opt.Ignore())
+            .ForMember(dest => dest.Days, opt => opt.Ignore())
             ;
     }
     public class TripModelActions : IMappingAction<Trip, TripModel>
@@ -50,14 +51,23 @@ public class TripModelProfile : Profile
         {
             using var db = contextFactory.CreateDbContext();
 
-            var trip = db.Trips.Include(x => x.Creator).FirstOrDefault(x => x.Id == source.Id);
+            var trip = db.Trips
+                      .Include(x => x.Creator)
+                      .Include(x => x.Days)  // Включаем дни поездки
+                      .ThenInclude(d => d.Activities)  // Включаем активности для каждого дня
+                      .FirstOrDefault(x => x.Id == source.Id);
 
             destination.Id = trip.Uid;
             destination.CreatorId = trip.Creator.Id;
             destination.CreatorName = trip.Creator.FullName;
 
             destination.Participants = trip.Participants?.Select(x => x.FullName);
-            destination.Activities = trip.Activities?.Select(x => x.Title);
+
+            destination.Days = trip.Days.Select(day =>
+            {
+                var activities = string.Join(", ", day.Activities.Select(a => a.Title));
+                return $"Day {day.Number} - {activities}";
+            });
         }
     }
 }

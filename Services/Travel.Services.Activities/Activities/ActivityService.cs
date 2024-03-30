@@ -32,7 +32,7 @@ public class ActivityService : IActivityService
         using var context = await dbContextFactory.CreateDbContextAsync();
 
         var activities = await context.Activities
-            .Include(x => x.Trip)
+            .Include(x => x.Day)
             .Include(x => x.Category)
             .Include(x => x.Payer)
             .Include(x => x.Participants)
@@ -48,7 +48,7 @@ public class ActivityService : IActivityService
         using var context = await dbContextFactory.CreateDbContextAsync();
 
         var activity = await context.Activities
-            .Include(x => x.Trip)
+            .Include(x => x.Day)
             .Include(x => x.Category)
             .Include(x => x.Payer)
             .Include(x => x.Participants)
@@ -59,16 +59,16 @@ public class ActivityService : IActivityService
         return result;
     }
 
-    public async Task<IEnumerable<ActivityModel>> GetByTripId(Guid tripId)
+    public async Task<IEnumerable<ActivityModel>> GetByDayId(Guid dayId)
     {
         using var context = await dbContextFactory.CreateDbContextAsync();
 
         var activities = await context.Activities
-            .Include(x => x.Trip)
+            .Include(x => x.Day)
             .Include(x => x.Category)
             .Include(x => x.Payer)
             .Include(x => x.Participants)
-            .Where(x => x.Trip.Uid == tripId)
+            .Where(x => x.Day.Uid == dayId)
             .ToListAsync();
 
         var result = mapper.Map<IEnumerable<ActivityModel>>(activities);

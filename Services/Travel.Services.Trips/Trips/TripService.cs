@@ -34,7 +34,8 @@ public class TripService : ITripService
         var trips = await context.Trips
             .Include(x => x.Creator)
             .Include(x => x.Participants)
-            .Include(x => x.Activities)
+            .Include(x => x.Days)
+            .ThenInclude(d => d.Activities)
             .ToListAsync();
 
         var result = mapper.Map<IEnumerable<TripModel>>(trips);
@@ -49,7 +50,8 @@ public class TripService : ITripService
         var trip = await context.Trips
             .Include(x => x.Creator)
             .Include(x => x.Participants)
-            .Include(x => x.Activities)
+            .Include(x => x.Days)
+            .ThenInclude(d => d.Activities)
             .FirstOrDefaultAsync(x => x.Uid == id);
 
         var result = mapper.Map<TripModel>(trip);
@@ -64,7 +66,8 @@ public class TripService : ITripService
         var trips = await context.Trips
             .Include(x => x.Creator)
             .Include(x => x.Participants)
-            .Include(x => x.Activities)
+            .Include(x => x.Days)
+            .ThenInclude(d => d.Activities)
             .Where(x => x.Creator.Id == creatorId)
             .ToListAsync();
 

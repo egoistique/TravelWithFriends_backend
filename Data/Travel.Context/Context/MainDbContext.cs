@@ -7,7 +7,8 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 public class MainDbContext : IdentityDbContext<User, IdentityRole<Guid>, Guid>
 {
-    public DbSet<Trip> Trips { get; set; }
+    public DbSet<Trip> Trips { get; set; } 
+    public DbSet<TripDay> Days { get; set; }
     public DbSet<Activiti> Activities { get; set; }
     public DbSet<Category> Categories { get; set; }
 
@@ -21,5 +22,6 @@ public class MainDbContext : IdentityDbContext<User, IdentityRole<Guid>, Guid>
         modelBuilder.ConfigureActivities();
         modelBuilder.ConfigureCategories();
         modelBuilder.ConfigureUsers();
+        modelBuilder.ConfigureDays();
     }
 }

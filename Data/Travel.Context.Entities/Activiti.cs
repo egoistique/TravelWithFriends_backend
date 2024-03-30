@@ -2,8 +2,8 @@
 
 public class Activiti : BaseEntity
 {
-    public int? TripId { get; set; }
-    public virtual Trip Trip { get; set; }
+    public int? DayId { get; set; }
+    public virtual TripDay Day { get; set; }
     public string Title { get; set; }
     public int? CategoryId { get; set; }
     public virtual Category Category { get; set; }

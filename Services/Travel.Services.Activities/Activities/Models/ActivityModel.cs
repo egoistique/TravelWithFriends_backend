@@ -8,8 +8,8 @@ namespace Travel.Services.Activities;
 public class ActivityModel
 {
     public Guid Id { get; set; }
-    public Guid TripId { get; set; }
-    public string TripTitle { get; set; }
+    public Guid DayId { get; set; }
+    public int DayNumber { get; set; }
     public string Title { get; set; }
     public Guid CategoryId { get; set; }
     public string CategoryTitle { get; set; }
@@ -27,8 +27,8 @@ public class ActivityModelProfile : Profile
         CreateMap<Activiti, ActivityModel>()
             .BeforeMap<ActivityModelActions>()
             .ForMember(dest => dest.Id, opt => opt.Ignore())
-            .ForMember(dest => dest.TripId, opt => opt.Ignore())
-            .ForMember(dest => dest.TripTitle, opt => opt.Ignore()) 
+            .ForMember(dest => dest.DayId, opt => opt.Ignore())
+            .ForMember(dest => dest.DayNumber, opt => opt.Ignore()) 
             .ForMember(dest => dest.CategoryId, opt => opt.Ignore())
             .ForMember(dest => dest.CategoryTitle, opt => opt.Ignore())
             .ForMember(dest => dest.PayerId, opt => opt.Ignore())
@@ -50,15 +50,15 @@ public class ActivityModelProfile : Profile
             using var db = contextFactory.CreateDbContext();
 
             var activity = db.Activities
-                .Include(x => x.Trip)
+                .Include(x => x.Day)
                 .Include(x => x.Category)
                 .Include(x => x.Payer)
                 .FirstOrDefault(x => x.Id == source.Id);
 
 
             destination.Id = activity.Uid;
-            destination.TripId = activity.Trip.Uid;
-            destination.TripTitle = activity.Trip.Title;           
+            destination.DayId = activity.Day.Uid;
+            destination.DayNumber = activity.Day.Number;           
             destination.CategoryId = activity.Category.Uid;
             destination.CategoryTitle = activity.Category.Title;  
             destination.PayerId = activity.Payer.Id;
