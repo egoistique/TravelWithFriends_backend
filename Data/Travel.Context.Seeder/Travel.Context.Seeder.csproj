@@ -12,6 +12,7 @@
   </ItemGroup>  
   
   <ItemGroup>
+    <ProjectReference Include="..\..\Services\Travel.Services.UserAccount\Travel.Services.UserAccount.csproj" />
     <ProjectReference Include="..\..\Shared\Travel.Common\Travel.Common.csproj" />
     <ProjectReference Include="..\Travel.Context.Entities\Travel.Context.Entities.csproj" />
     <ProjectReference Include="..\Travel.Context\Travel.Context.csproj" />
