@@ -13,6 +13,7 @@ public class UpdateModel
     public string DateEnd { get; set; }
     public string City { get; set; }
     public string HotelTitle { get; set; }
+    public bool IsPublicated { get; set; }
 
 }
 

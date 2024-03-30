@@ -2,7 +2,7 @@
 
 public class Trip : BaseEntity
 {
-    public Guid? CreatorId { get; set; } //creator
+    public Guid? CreatorId { get; set; } 
     public virtual User Creator { get; set; }
 
     public string Title { get; set; }
@@ -11,6 +11,7 @@ public class Trip : BaseEntity
     public string DateEnd { get; set; }
     public string City { get; set; }
     public string HotelTitle { get; set; }
+    public bool IsPublicated { get; set; }
     public virtual ICollection<User> Participants { get; set; }
-    public virtual ICollection<Activiti> Activities { get; set; }
+    public virtual ICollection<TripDay> Days { get; set; }
 }

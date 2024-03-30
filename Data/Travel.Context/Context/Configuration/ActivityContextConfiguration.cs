@@ -1,7 +1,6 @@
 ﻿namespace Travel.Context;
 
 using Microsoft.EntityFrameworkCore;
-using System.Drawing;
 using Travel.Context.Entities;
 
 public static class ActivityContextConfiguration
@@ -12,10 +11,10 @@ public static class ActivityContextConfiguration
         modelBuilder.Entity<Activiti>().Property(x => x.Title).IsRequired();
         modelBuilder.Entity<Activiti>().Property(x => x.Title).HasMaxLength(250);
         modelBuilder.Entity<Activiti>()
-            .HasOne(x => x.Trip)
+            .HasOne(x => x.Day)
             .WithMany(x => x.Activities)
-            .HasForeignKey(x => x.TripId)
-            .OnDelete(DeleteBehavior.Restrict);
+            .HasForeignKey(x => x.DayId)
+            .OnDelete(DeleteBehavior.Cascade);
         modelBuilder.Entity<Activiti>()
             .HasOne(x => x.Category)
             .WithMany(x => x.Activities)
@@ -28,8 +27,5 @@ public static class ActivityContextConfiguration
 
         modelBuilder.Entity<Activiti>().HasMany(x => x.Participants).WithMany(x => x.ParticipatedActivities).UsingEntity(t => t.ToTable("user_activities"));
 
-
-
-       
     }
 }

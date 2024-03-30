@@ -1,7 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-namespace Travel.Context;
+﻿namespace Travel.Context;
 
 using Microsoft.EntityFrameworkCore;
 using Travel.Context.Entities;
@@ -14,6 +11,11 @@ public static class TripContextConfiguration
         modelBuilder.Entity<Trip>().Property(x => x.Title).IsRequired();
         modelBuilder.Entity<Trip>().Property(x => x.Title).HasMaxLength(100);
         
+        modelBuilder.Entity<Trip>()
+             .HasOne(t => t.Creator)
+             .WithMany(u => u.CreatedTrips)
+             .HasForeignKey(t => t.CreatorId)
+             .IsRequired();
         modelBuilder.Entity<Trip>()
              .HasOne(t => t.Creator)
              .WithMany(u => u.CreatedTrips)

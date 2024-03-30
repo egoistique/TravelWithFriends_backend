@@ -46,9 +46,9 @@ public class ActivityController : Controller
 
     [HttpGet("trip/{tripId:Guid}")]
     //[AllowAnonymous]
-    public async Task<IEnumerable<ActivityModel>> GetByTripId([FromRoute] Guid tripId)
+    public async Task<IEnumerable<ActivityModel>> GetByDayId([FromRoute] Guid tripId)
     {
-        var result = await activityService.GetByTripId(tripId);
+        var result = await activityService.GetByDayId(tripId);
         return result;
     }
 

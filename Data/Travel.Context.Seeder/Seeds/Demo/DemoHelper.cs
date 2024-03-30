@@ -2,6 +2,7 @@
 
 using System.Net.NetworkInformation;
 using Travel.Context.Entities;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 public class DemoHelper
 {
@@ -13,19 +14,19 @@ public class DemoHelper
     {
         user1 = new User
         {
-            FullName = "Василий 1",
+            FullName = "Василий",
             Status = UserStatus.Active
         };
 
         user2 = new User
         {
-            FullName = "Василий 2",
+            FullName = "Петр",
             Status = UserStatus.Active
         };
 
         user3 = new User
         {
-            FullName = "Василий 3",
+            FullName = "Мария",
             Status = UserStatus.Active
         };
     }
@@ -46,32 +47,66 @@ public class DemoHelper
                     DateEnd = "30.03.2024",
                     City = "Москва",
                     HotelTitle = "Hotel X",
+                    IsPublicated = true,
                     Participants = new List<User>()
                     {
                         user1,
                         user2,
                         user3
                     },
-                    Activities = new List<Activiti>()
+                    Days = new List<TripDay>
                     {
-                        new Activiti()
+                        new TripDay()
                         {
-                            Title = "Третьяковская галерея",
-                            Category = new Category()
+                            Number = 1,
+                            Activities = new List<Activiti>()
                             {
-                                Title = "Музей",
-                            },
-                            Participants = new List<User>()
+                                new Activiti()
+                                {
+                                    Title = "Третьяковская галерея",
+                                    Category = new Category()
+                                    {
+                                        Title = "Галерея",
+                                    },
+                                    Participants = new List<User>()
+                                    {
+                                        user1,
+                                        user2,
+                                        user3
+                                    },
+                                    PricePerOne = 500,
+                                    TotalPrice = 1500,
+                                    Payer = user2
+                                }
+                            }
+
+                        },
+                        new TripDay()
+                        {
+                            Number = 2,
+                            Activities = new List<Activiti>()
                             {
-                                user1,
-                                user2,
-                                user3
-                            },
-                            PricePerOne = 500,
-                            TotalPrice = 1500,
-                            Payer = user2
-                        }
+                                new Activiti()
+                                {
+                                    Title = "Прогулка по парку Зарядье",
+                                    Category = new Category()
+                                    {
+                                        Title = "Прогулка",
+                                    },
+                                    Participants = new List<User>()
+                                    {
+                                        user1,
+                                        user3
+                                    },
+                                    PricePerOne = 0,
+                                    TotalPrice = 0,
+                                    Payer = user2
+                                }
+                            }
+
+                        },
                     }
+                   
                    
 
                 }
