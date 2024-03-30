@@ -1,0 +1,24 @@
+version: '3.4'
+
+services:
+
+  travel_postgresql:
+    image: postgres:14.1
+    
+            
+  travel_api:
+    image: ${DOCKER_REGISTRY-}travelapi
+    build:
+      context: .
+      dockerfile: Systems/Api/Travel.Api/Dockerfile
+    depends_on:
+      - travel_postgresql
+
+  # travel_identity:
+  #   image: ${DOCKER_REGISTRY-}travellidentity
+  #   build:
+  #     context: .
+  #     dockerfile: Systems/Identity/Travel.Identity/Dockerfile
+  #   depends_on:
+  #     - travel_postgresql
+
