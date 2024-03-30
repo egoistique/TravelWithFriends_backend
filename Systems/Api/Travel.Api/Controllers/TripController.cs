@@ -8,7 +8,7 @@ using Travel.Services.Trips;
 using Travel.Services.Logger;
 
 [ApiController]
-//[Authorize]
+[Authorize]
 [ApiVersion("1.0")]
 [ApiExplorerSettings(GroupName = "Product")]
 [Route("v{version:apiVersion}/[controller]")]
@@ -24,7 +24,7 @@ public class TripController : ControllerBase
     }
 
     [HttpGet("")]
-    //[Authorize(AppScopes.TripsRead)]
+    [Authorize(AppScopes.TripsRead)]
     public async Task<IEnumerable<TripModel>> GetAll()
     {
         var result = await tripService.GetAll();
@@ -33,7 +33,7 @@ public class TripController : ControllerBase
     }
 
     [HttpGet("{id:Guid}")]
-    //[Authorize(AppScopes.TripsRead)]
+    [Authorize(AppScopes.TripsRead)]
     public async Task<IActionResult> Get([FromRoute] Guid id)
     {
         var result = await tripService.GetById(id);
@@ -45,7 +45,7 @@ public class TripController : ControllerBase
     }
 
     [HttpGet("creator/{creatorId:Guid}")]
-    //[AllowAnonymous]
+    [AllowAnonymous]
     public async Task<IEnumerable<TripModel>> GetByCreatorId([FromRoute] Guid creatorId)
     {
         var result = await tripService.GetByCreatorId(creatorId);
@@ -53,7 +53,7 @@ public class TripController : ControllerBase
     }
 
     [HttpPost("")]
-    //[Authorize(AppScopes.TripsWrite)]
+    [Authorize(AppScopes.TripsWrite)]
     public async Task<TripModel> Create(CreateModel request)
     {
         var result = await tripService.Create(request);
@@ -62,14 +62,14 @@ public class TripController : ControllerBase
     }
 
     [HttpPut("{id:Guid}")]
-    //[Authorize(AppScopes.TripsWrite)]
+    [Authorize(AppScopes.TripsWrite)]
     public async Task Update([FromRoute] Guid id, UpdateModel request)
     {
         await tripService.Update(id, request);
     }
 
     [HttpDelete("{id:Guid}")]
-    //[Authorize(AppScopes.TripsWrite)]
+    [Authorize(AppScopes.TripsWrite)]
     public async Task Delete([FromRoute] Guid id)
     {
         await tripService.Delete(id);

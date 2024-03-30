@@ -24,8 +24,8 @@ public static class SwaggerConfiguration
     /// <param name="swaggerSettings"></param>
     public static IServiceCollection AddAppSwagger(this IServiceCollection services, 
         MainSettings mainSettings, 
-        SwaggerSettings swaggerSettings
-        //IdentitySettings identitySettings
+        SwaggerSettings swaggerSettings,
+        IdentitySettings identitySettings
         )
     {
         if (!swaggerSettings.Enabled)
@@ -70,7 +70,7 @@ public static class SwaggerConfiguration
                 {
                     ClientCredentials = new OpenApiOAuthFlow
                     {
-                        //TokenUrl = new Uri($"{identitySettings.Url}/connect/token"),
+                        TokenUrl = new Uri($"{identitySettings.Url}/connect/token"),
                         Scopes = new Dictionary<string, string>
                         {
                             { AppScopes.TripsRead, "Read" },
@@ -80,7 +80,7 @@ public static class SwaggerConfiguration
 
                     Password = new OpenApiOAuthFlow
                     {
-                        //TokenUrl = new Uri($"{identitySettings.Url}/connect/token"),
+                        TokenUrl = new Uri($"{identitySettings.Url}/connect/token"),
                         Scopes = new Dictionary<string, string>
                         {
                             { AppScopes.TripsRead, "Read" },
