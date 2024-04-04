@@ -21,7 +21,8 @@ public static class Bootstrapper
             .AddApiSpecialSettings()
             .AddTripService()
             .AddActivityService()
-            .AddUserAccountService();
+            .AddUserAccountService()
+            .AddHttpClient();
         return service;
     }
 }
