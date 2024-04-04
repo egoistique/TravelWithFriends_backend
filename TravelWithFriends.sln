@@ -39,17 +39,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Travel.Api.Settings", "Syst
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Travel.Services.Trips", "Services\Travel.Services.Trips\Travel.Services.Trips.csproj", "{D64A7551-C2A0-4C92-9ABE-A59A40D23AB6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Travel.Services.Activities", "Services\Travel.Services.Activities\Travel.Services.Activities.csproj", "{19792E33-9823-4B42-9F03-7A83490E12FD}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_docker", "_docker", "{587D294C-AD24-4793-BFDB-654F19C53F9C}"
-	ProjectSection(SolutionItems) = preProject
-		docker-compose.override.yml = docker-compose.override.yml
-		docker-compose.yml = docker-compose.yml
-		env.api = env.api
-		env.identity = env.identity
-	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Travel.Identity", "Systems\Identity\Travel.Identity\Travel.Identity.csproj", "{42BCCAC4-CA8C-4DEA-B4D1-DFB12A028542}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Travel.Identity", "Systems\Identity\Travel.Identity\Travel.Identity.csproj", "{325C43FE-253B-4B8E-9F95-100759D53D15}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -101,14 +91,10 @@ Global
 		{D64A7551-C2A0-4C92-9ABE-A59A40D23AB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D64A7551-C2A0-4C92-9ABE-A59A40D23AB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D64A7551-C2A0-4C92-9ABE-A59A40D23AB6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{19792E33-9823-4B42-9F03-7A83490E12FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{19792E33-9823-4B42-9F03-7A83490E12FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{19792E33-9823-4B42-9F03-7A83490E12FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{19792E33-9823-4B42-9F03-7A83490E12FD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{42BCCAC4-CA8C-4DEA-B4D1-DFB12A028542}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{42BCCAC4-CA8C-4DEA-B4D1-DFB12A028542}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{42BCCAC4-CA8C-4DEA-B4D1-DFB12A028542}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{42BCCAC4-CA8C-4DEA-B4D1-DFB12A028542}.Release|Any CPU.Build.0 = Release|Any CPU
+		{325C43FE-253B-4B8E-9F95-100759D53D15}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{325C43FE-253B-4B8E-9F95-100759D53D15}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{325C43FE-253B-4B8E-9F95-100759D53D15}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{325C43FE-253B-4B8E-9F95-100759D53D15}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -128,8 +114,7 @@ Global
 		{D030E129-9792-49B2-87AE-AC34467D7C9B} = {975F07E7-293E-41B6-B0DA-12F47D5B0A81}
 		{D99A2165-8B47-4D09-B397-C338FEF14BF5} = {9BC66BBF-4ECF-4944-A76C-56D0387D3397}
 		{D64A7551-C2A0-4C92-9ABE-A59A40D23AB6} = {975F07E7-293E-41B6-B0DA-12F47D5B0A81}
-		{19792E33-9823-4B42-9F03-7A83490E12FD} = {975F07E7-293E-41B6-B0DA-12F47D5B0A81}
-		{42BCCAC4-CA8C-4DEA-B4D1-DFB12A028542} = {693EAFCA-0502-441B-92AC-5D64467EE592}
+		{325C43FE-253B-4B8E-9F95-100759D53D15} = {693EAFCA-0502-441B-92AC-5D64467EE592}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9CBA77C4-9CB5-41EC-A933-F2B415B2BF35}
