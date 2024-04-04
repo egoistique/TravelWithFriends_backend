@@ -35,21 +35,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Travel.Context.Seeder", "Da
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Travel.Services.UserAccount", "Services\Travel.Services.UserAccount\Travel.Services.UserAccount.csproj", "{D030E129-9792-49B2-87AE-AC34467D7C9B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Travel.Api.Settings", "Systems\Api\Travel.Api.Settings\Travel.Api.Settings.csproj", "{D99A2165-8B47-4D09-B397-C338FEF14BF5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Travel.Api.Settings", "Systems\Api\Travel.Api.Settings\Travel.Api.Settings.csproj", "{D99A2165-8B47-4D09-B397-C338FEF14BF5}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Travel.Services.Trips", "Services\Travel.Services.Trips\Travel.Services.Trips.csproj", "{D64A7551-C2A0-4C92-9ABE-A59A40D23AB6}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Travel.Services.Activities", "Services\Travel.Services.Activities\Travel.Services.Activities.csproj", "{19792E33-9823-4B42-9F03-7A83490E12FD}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_docker", "_docker", "{587D294C-AD24-4793-BFDB-654F19C53F9C}"
-	ProjectSection(SolutionItems) = preProject
-		docker-compose.override.yml = docker-compose.override.yml
-		docker-compose.yml = docker-compose.yml
-		env.api = env.api
-		env.identity = env.identity
-	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Travel.Identity", "Systems\Identity\Travel.Identity\Travel.Identity.csproj", "{42BCCAC4-CA8C-4DEA-B4D1-DFB12A028542}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Travel.Services.Trips", "Services\Travel.Services.Trips\Travel.Services.Trips.csproj", "{D64A7551-C2A0-4C92-9ABE-A59A40D23AB6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
