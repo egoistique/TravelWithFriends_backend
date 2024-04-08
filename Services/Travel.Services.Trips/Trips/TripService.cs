@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using System.Drawing;
+using System.Globalization;
 using Travel.Common.Exceptions;
 using Travel.Common.Validator;
 using Travel.Context;
@@ -85,8 +86,21 @@ public class TripService : ITripService
 
         var trip = mapper.Map<Trip>(model);
 
-        await context.Trips.AddAsync(trip);
+        DateTime startDate = DateTime.ParseExact(model.DateStart, "dd.MM.yyyy", CultureInfo.InvariantCulture);
+        DateTime endDate = DateTime.ParseExact(model.DateEnd, "dd.MM.yyyy", CultureInfo.InvariantCulture);
 
+        List<TripDay> tripDays = new List<TripDay>();
+        for (DateTime date = startDate; date <= endDate; date = date.AddDays(1))
+        {
+            tripDays.Add(new TripDay
+            {
+                Number = (date - startDate).Days + 1,                
+            });
+        }
+
+        trip.Days = tripDays;
+
+        await context.Trips.AddAsync(trip);
         await context.SaveChangesAsync();
 
         return mapper.Map<TripModel>(trip);
