@@ -5,6 +5,7 @@ public class Activiti : BaseEntity
     public int? DayId { get; set; }
     public virtual TripDay Day { get; set; }
     public string Title { get; set; }
+    public bool FromSearch { get; set; }
     public int? CategoryId { get; set; }
     public virtual Category Category { get; set; }
     public virtual ICollection<User> Participants { get; set; }

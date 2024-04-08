@@ -75,4 +75,13 @@ public class TripController : ControllerBase
         await tripService.Delete(id);
     }
 
+    [HttpGet("publicated/")]
+    [AllowAnonymous]
+    public async Task<IEnumerable<PublicatedTripModel>> GetPublicated()
+    {
+        var result = await tripService.GetPublicated();
+
+        return result;
+    }
+
 }

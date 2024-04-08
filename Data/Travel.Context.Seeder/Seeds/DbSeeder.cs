@@ -63,7 +63,10 @@ public static class DbSeeder
 
         var userAccountService = scope.ServiceProvider.GetService<IUserAccountService>();
 
-        if (!(await userAccountService.IsEmpty()))
+        var adminEmail = "admin@travelwf.com";
+        var adminExists = await userAccountService.Exists(adminEmail);
+            
+        if (adminExists)
             return;
 
         await userAccountService.Create(new RegisterUserAccountModel()

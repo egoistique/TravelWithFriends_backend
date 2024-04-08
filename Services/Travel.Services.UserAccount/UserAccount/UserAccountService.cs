@@ -6,19 +6,23 @@ using Travel.Common.Validator;
 using Travel.Context.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Travel.Context;
 
 public class UserAccountService : IUserAccountService
 {
+    private readonly IDbContextFactory<MainDbContext> dbContextFactory;
     private readonly IMapper mapper;
     private readonly UserManager<User> userManager;
     private readonly IModelValidator<RegisterUserAccountModel> registerUserAccountModelValidator;
 
     public UserAccountService(
+        IDbContextFactory<MainDbContext> dbContextFactory,
         IMapper mapper,
         UserManager<User> userManager,
         IModelValidator<RegisterUserAccountModel> registerUserAccountModelValidator
     )
     {
+        this.dbContextFactory = dbContextFactory;
         this.mapper = mapper;
         this.userManager = userManager;
         this.registerUserAccountModelValidator = registerUserAccountModelValidator;
@@ -55,5 +59,11 @@ public class UserAccountService : IUserAccountService
             throw new ProcessException($"Creating user account is wrong. {string.Join(", ", result.Errors.Select(s => s.Description))}");
 
         return mapper.Map<UserAccountModel>(user);
+    }
+
+    public async Task<bool> Exists(string email)
+    {
+        using var context = await dbContextFactory.CreateDbContextAsync();
+        return await context.Users.AnyAsync(u => u.Email == email);
     }
 }

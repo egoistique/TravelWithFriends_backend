@@ -121,4 +121,19 @@ public class TripService : ITripService
         await context.SaveChangesAsync();
     }
 
+    public async Task<IEnumerable<PublicatedTripModel>> GetPublicated()
+    {
+        using var context = await dbContextFactory.CreateDbContextAsync();
+
+        var trips = await context.Trips
+            .Include(x => x.Creator)
+            .Include(x => x.Days)
+            .ThenInclude(d => d.Activities)
+            .ToListAsync();
+
+        var result = mapper.Map<IEnumerable<PublicatedTripModel>>(trips);
+
+        return result;
+    }
+
 }

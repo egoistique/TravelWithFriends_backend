@@ -9,4 +9,5 @@ public interface IUserAccountService
     /// <param name="model"></param>
     /// <returns></returns>
     Task<UserAccountModel> Create(RegisterUserAccountModel model);
+    Task<bool> Exists(string email);
 }
