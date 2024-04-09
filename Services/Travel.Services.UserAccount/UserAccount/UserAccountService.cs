@@ -66,4 +66,29 @@ public class UserAccountService : IUserAccountService
         using var context = await dbContextFactory.CreateDbContextAsync();
         return await context.Users.AnyAsync(u => u.Email == email);
     }
+
+    public async Task<bool> ChangeUserStatus(Guid userId, UserStatus newStatus)
+    {
+        var user = await userManager.FindByIdAsync(userId.ToString());
+        if (user == null)
+            throw new ProcessException($"User with id {userId} not found.");
+
+        user.Status = newStatus;
+        var result = await userManager.UpdateAsync(user);
+        if (!result.Succeeded)
+            throw new ProcessException($"Failed to update user status. {string.Join(", ", result.Errors.Select(s => s.Description))}");
+
+        return true;
+    }
+
+    public async Task<UserStatus> GetStatus(Guid userId)
+    {
+        var user = await userManager.FindByIdAsync(userId.ToString());
+        if (user == null)
+            throw new ProcessException($"User with id {userId} not found.");
+
+        return user.Status;
+    }
+
+
 }

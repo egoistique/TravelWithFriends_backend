@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Drawing;
 using System.Globalization;
 using Travel.Common.Exceptions;
+using Travel.Common.Limits;
 using Travel.Common.Validator;
 using Travel.Context;
 using Travel.Context.Entities;
@@ -83,6 +84,31 @@ public class TripService : ITripService
         await createModelValidator.CheckAsync(model);
 
         using var context = await dbContextFactory.CreateDbContextAsync();
+
+        var creator = await context.Users
+            .Include(u => u.CreatedTrips)
+            .FirstOrDefaultAsync(u => u.Id == model.CreatorId);
+        if (creator == null)
+        {
+            throw new ProcessException($"User with ID {model.CreatorId} does not exist.");
+        }
+
+        // Получаем текущее количество созданных путешествий у участника
+        int currentTripsCount = creator.CreatedTrips.Count;
+
+        // Получаем лимит для текущего статуса создателя путешествия
+        int maxTripsLimit = creator.Status == 0 ?
+            (int)Limits.ParticipantsLimit.MaxParticipantsPerCreatorStatus0 :
+            (int)Limits.ParticipantsLimit.MaxParticipantsPerCreatorStatus2;
+
+        Console.WriteLine($"Current trips count for user {creator.Id}: {currentTripsCount}");
+        Console.WriteLine($"Max trips limit for user {creator.Id}: {maxTripsLimit}");
+
+        // Проверяем, не превышает ли текущее количество путешествий у участника лимит
+        if (currentTripsCount >= maxTripsLimit)
+        {
+            throw new TripLimitExceededException();
+        }
 
         var trip = mapper.Map<Trip>(model);
 
