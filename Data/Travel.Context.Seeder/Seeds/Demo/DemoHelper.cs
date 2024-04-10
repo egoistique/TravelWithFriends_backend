@@ -64,6 +64,7 @@ public class DemoHelper
                                 new Activiti()
                                 {
                                     Title = "Третьяковская галерея",
+                                    FromSearch = true,
                                     Category = new Category()
                                     {
                                         Title = "Галерея",
@@ -77,6 +78,24 @@ public class DemoHelper
                                     PricePerOne = 500,
                                     TotalPrice = 1500,
                                     Payer = user2
+                                },
+                                new Activiti()
+                                {
+                                    Title = "Кремль",
+                                    FromSearch = true,
+                                    Category = new Category()
+                                    {
+                                        Title = "Музей",
+                                    },
+                                    Participants = new List<User>()
+                                    {
+                                        user1,
+                                        user2,
+                                        user3
+                                    },
+                                    PricePerOne = 300,
+                                    TotalPrice = 900,
+                                    Payer = user3
                                 }
                             }
 
@@ -89,6 +108,7 @@ public class DemoHelper
                                 new Activiti()
                                 {
                                     Title = "Прогулка по парку Зарядье",
+                                    FromSearch = false,
                                     Category = new Category()
                                     {
                                         Title = "Прогулка",
@@ -100,6 +120,23 @@ public class DemoHelper
                                     },
                                     PricePerOne = 0,
                                     TotalPrice = 0,
+                                    Payer = user2
+                                },
+                                new Activiti()
+                                {
+                                    Title = "Большой театр",
+                                    FromSearch = true,
+                                    Category = new Category()
+                                    {
+                                        Title = "Театр",
+                                    },
+                                    Participants = new List<User>()
+                                    {
+                                        user1,
+                                        user2
+                                    },
+                                    PricePerOne = 5000,
+                                    TotalPrice = 10000,
                                     Payer = user2
                                 }
                             }

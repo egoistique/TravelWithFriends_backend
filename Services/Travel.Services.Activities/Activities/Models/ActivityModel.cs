@@ -11,6 +11,7 @@ public class ActivityModel
     public Guid DayId { get; set; }
     public int DayNumber { get; set; }
     public string Title { get; set; }
+    public bool FromSearch { get; set; }
     public Guid CategoryId { get; set; }
     public string CategoryTitle { get; set; }
     public int PricePerOne { get; set; }

@@ -3,8 +3,10 @@ using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 using Travel.Common.Exceptions;
 using Travel.Common.Validator;
+using Travel.Common.Limits;
 using Travel.Context;
 using Travel.Context.Entities;
+using static Travel.Common.Limits.Limits;
 
 namespace Travel.Services.Activities;
 
@@ -82,6 +84,37 @@ public class ActivityService : IActivityService
         await createModelValidator.CheckAsync(model);
 
         using var context = await dbContextFactory.CreateDbContextAsync();
+
+        var day = await context.Days.FirstOrDefaultAsync(d => d.Uid == model.DayId);
+        if (day == null)
+        {
+            throw new ProcessException($"Day with ID {model.DayId} does not exist.");
+        }
+
+        if (day.Trip == null)
+        {
+            throw new ProcessException($"Trip does not exist for the day with ID {model.DayId}.");
+        }
+
+        var creatorStatus = day.Trip.Creator.Status;
+
+        var activitiesCountForDay = day.Activities.Count();
+
+        if (model.FromSearch)
+        {
+            if (activitiesCountForDay >= (int)SearchLimit.MaxActivitiesPerDay)
+            {
+                throw new ProcessException($"The limit of {SearchLimit.MaxActivitiesPerDay} activities with FromSearch = true for this day has been reached.");
+            }
+        }
+        else
+        {
+            int maxActivitiesPerDay = creatorStatus == 0 ? (int)NonSearchLimit.MaxActsPerDayStatus0 : (int)NonSearchLimit.MaxActsPerDayStatus2;
+            if (activitiesCountForDay >= maxActivitiesPerDay)
+            {
+                throw new ProcessException($"The limit of {maxActivitiesPerDay} activities with FromSearch = false for this day has been reached for creator with status {creatorStatus}.");
+            }
+        }
 
         var activity = mapper.Map<Activiti>(model);
 

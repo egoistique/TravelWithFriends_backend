@@ -1,4 +1,6 @@
-﻿namespace Travel.Services.UserAccount;
+﻿using Travel.Context.Entities;
+
+namespace Travel.Services.UserAccount;
 public interface IUserAccountService
 {
     Task<bool> IsEmpty();
@@ -9,4 +11,7 @@ public interface IUserAccountService
     /// <param name="model"></param>
     /// <returns></returns>
     Task<UserAccountModel> Create(RegisterUserAccountModel model);
+    Task<bool> Exists(string email);
+    Task<bool> ChangeUserStatus(Guid userId, UserStatus newStatus);
+    Task<UserStatus> GetStatus(Guid userId);
 }

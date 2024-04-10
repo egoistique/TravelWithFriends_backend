@@ -24,7 +24,8 @@ public class TripController : ControllerBase
     }
 
     [HttpGet("")]
-    [Authorize(AppScopes.TripsRead)]
+    // [Authorize(AppScopes.TripsRead)]
+    [AllowAnonymous]
     public async Task<IEnumerable<TripModel>> GetAll()
     {
         var result = await tripService.GetAll();
@@ -53,7 +54,8 @@ public class TripController : ControllerBase
     }
 
     [HttpPost("")]
-    [Authorize(AppScopes.TripsWrite)]
+    //[Authorize(AppScopes.TripsWrite)]
+    [AllowAnonymous]
     public async Task<TripModel> Create(CreateModel request)
     {
         var result = await tripService.Create(request);
@@ -73,6 +75,15 @@ public class TripController : ControllerBase
     public async Task Delete([FromRoute] Guid id)
     {
         await tripService.Delete(id);
+    }
+
+    [HttpGet("publicated/")]
+    [AllowAnonymous]
+    public async Task<IEnumerable<PublicatedTripModel>> GetPublicated()
+    {
+        var result = await tripService.GetPublicated();
+
+        return result;
     }
 
 }
