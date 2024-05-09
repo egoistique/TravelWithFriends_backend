@@ -56,16 +56,23 @@ public class AuthController : ControllerBase
             Console.WriteLine("Response Content: " + responseContent); 
             var tokenContent = JsonSerializer.Deserialize<TokenResponse>(responseContent);
 
+            bool isAdmin = request.Username == "admin@travelwf.com";
 
             Console.WriteLine(tokenContent.AccessToken);
 
-            return Ok(tokenContent.AccessToken);
+            return Ok(new AuthResult { AccessToken = tokenContent.AccessToken, IsAdmin = isAdmin, });
         }
         catch (Exception ex)
         {
             return StatusCode(500, $"Internal server error: {ex.Message}");
         }
     }
+}
+
+public class AuthResult
+{
+    public bool IsAdmin { get; set; }
+    public string AccessToken { get; set; }
 }
 
 public class LoginRequest

@@ -44,11 +44,11 @@ public class ActivityController : Controller
         return Ok(result);
     }
 
-    [HttpGet("trip/{tripId:Guid}")]
+    [HttpGet("day/{dayId:Guid}")]
     //[AllowAnonymous]
-    public async Task<IEnumerable<ActivityModel>> GetByDayId([FromRoute] Guid tripId)
+    public async Task<IEnumerable<ActivityModel>> GetByDayId([FromRoute] Guid dayId)
     {
-        var result = await activityService.GetByDayId(tripId);
+        var result = await activityService.GetByDayId(dayId);
         return result;
     }
 
