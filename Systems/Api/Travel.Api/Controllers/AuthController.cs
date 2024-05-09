@@ -29,8 +29,8 @@ public class AuthController : ControllerBase
         {
             var client = _clientFactory.CreateClient();
 
-            var tokenRequest = new HttpRequestMessage(HttpMethod.Post, "https://localhost:7255/connect/token");
-            //var tokenRequest = new HttpRequestMessage(HttpMethod.Post, "http://host.docker.internal:10001/connect/token");
+            //var tokenRequest = new HttpRequestMessage(HttpMethod.Post, "https://localhost:7255/connect/token"); 
+            var tokenRequest = new HttpRequestMessage(HttpMethod.Post, "http://host.docker.internal:10001/connect/token");
             tokenRequest.Content = new FormUrlEncodedContent(new[]
             {
                     new KeyValuePair<string, string>("grant_type", "password"),
