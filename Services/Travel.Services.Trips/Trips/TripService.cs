@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using System.Drawing;
 using System.Globalization;
 using Travel.Common.Exceptions;
 using Travel.Common.Limits;
