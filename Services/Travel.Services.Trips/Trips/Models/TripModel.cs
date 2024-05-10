@@ -23,7 +23,10 @@ public class TripModel
 
     public IEnumerable<string> Participants { get; set; }
     public IEnumerable<string> Days { get; set; }
+
+    public string ErrorMessage { get; set; } // Добавляем поле для сообщения об ошибке
 }
+
 
 public class TripModelProfile : Profile
 {
@@ -61,7 +64,7 @@ public class TripModelProfile : Profile
             destination.CreatorId = trip.Creator.Id;
             destination.CreatorName = trip.Creator.FullName;
 
-            destination.Participants = trip.Participants?.Select(x => x.FullName);
+            destination.Participants = trip.Participants?.Select(x => x.Email);
 
             destination.Days = trip.Days.Select(day =>
             {

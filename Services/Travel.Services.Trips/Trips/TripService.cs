@@ -1,11 +1,14 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Globalization;
 using Travel.Common.Exceptions;
 using Travel.Common.Limits;
 using Travel.Common.Validator;
 using Travel.Context;
 using Travel.Context.Entities;
+using Travel.Services.UserAccount;
 
 namespace Travel.Services.Trips;
 
@@ -76,6 +79,87 @@ public class TripService : ITripService
 
         return result;
     }
+    public async Task<IEnumerable<TripModel>> GetUsersTrips(string userEmail)
+    {
+
+        var userId = await GetUserIdByEmail(userEmail);
+
+        using var context = await dbContextFactory.CreateDbContextAsync();
+
+        var trips = await context.Trips
+            .Include(x => x.Creator)
+            .Include(x => x.Participants)
+            //.Include(x => x.Days)
+            //    .ThenInclude(d => d.Activities)
+            .Where(x => x.Creator.Id == userId || x.Participants.Any(p => p.Id == userId))
+            .ToListAsync();
+
+        var result = mapper.Map<IEnumerable<TripModel>>(trips);
+
+        return result;
+    }
+
+    public async Task<Guid> GetUserIdByEmail(string email)
+    {
+        using var context = await dbContextFactory.CreateDbContextAsync();
+
+        var user = await context.Users
+            .FirstOrDefaultAsync(x => x.Email == email);
+
+        if (user != null)
+        {
+            Console.WriteLine($"User with email '{email}' found. UserId: {user.Id}");
+        }
+        else
+        {
+            Console.WriteLine($"User with email '{email}' not found.");
+        }
+        return user.Id;
+    }
+
+    public async Task<TripModel> AddTripParticipants(Guid tripId, string email)
+    {  
+        var userId = await GetUserIdByEmail(email);
+
+        using var context = await dbContextFactory.CreateDbContextAsync();
+
+        var trip = await context.Trips
+            .Include(t => t.Participants)
+            .FirstOrDefaultAsync(t => t.Uid == tripId);
+
+        if (trip == null)
+        {
+            return new TripModel { ErrorMessage = "Trip not found" };
+        }
+
+        if (trip.Participants.Any(p => p.Id == userId))
+        {
+            // Обработка случая, когда участник уже добавлен
+            return new TripModel { ErrorMessage = "User already added to the trip" };
+        }
+
+        // Получаем пользователя по его Id
+        var user = await context.Users.FindAsync(userId);
+
+        if (user == null)
+        {
+            // Обработка случая, когда пользователь не найден
+            return new TripModel { ErrorMessage = "User not found" };
+        }
+
+        // Добавляем существующего пользователя в коллекцию Participants трипа
+        trip.Participants.Add(user);
+
+        //// Увеличиваем счетчик числа участников трипа
+        //trip.NumOfParticipants++;
+
+        // Сохраняем изменения в базе данных
+        await context.SaveChangesAsync();
+
+        return mapper.Map<TripModel>(trip);
+    }
+
+
 
 
     public async Task<TripModel> Create(CreateModel model)
@@ -160,17 +244,42 @@ public class TripService : ITripService
         await context.SaveChangesAsync();
     }
 
+
     public async Task<IEnumerable<PublicatedTripModel>> GetPublicated()
     {
         using var context = await dbContextFactory.CreateDbContextAsync();
 
         var trips = await context.Trips
+            .Where(t => t.IsPublicated) // Фильтруем по полю IsPublicated
             .Include(x => x.Creator)
             .Include(x => x.Days)
             .ThenInclude(d => d.Activities)
             .ToListAsync();
 
         var result = mapper.Map<IEnumerable<PublicatedTripModel>>(trips);
+
+        return result;
+    }
+
+    public async Task<IEnumerable<Guid>> GetTripDays(Guid tripGuid)
+    {
+        using var context = await dbContextFactory.CreateDbContextAsync();
+
+        var trip = await context.Trips
+            .FirstOrDefaultAsync(x => x.Uid == tripGuid);
+
+        if (trip == null)
+        {
+            return Enumerable.Empty<Guid>();
+        }
+
+        var tripId = trip.Id;
+
+        var days = await context.Days
+            .Where(t => t.TripId == tripId)
+            .ToListAsync();
+
+        var result = days.Select(day => day.Uid);
 
         return result;
     }

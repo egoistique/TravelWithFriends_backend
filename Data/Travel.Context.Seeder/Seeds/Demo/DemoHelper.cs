@@ -10,6 +10,11 @@ public class DemoHelper
     private User user2;
     private User user3;
 
+    private Category category1;
+    private Category category2;    
+    private Category category3;    
+    private Category category4;
+
     public DemoHelper()
     {
         user1 = new User
@@ -28,6 +33,26 @@ public class DemoHelper
         {
             FullName = "Мария",
             Status = UserStatus.Active
+        };
+
+        category1 = new Category
+        {
+            Title = "Галерея"
+        };
+
+        category2 = new Category()
+        {
+            Title = "Музей",
+        };
+
+        category3 = new Category()
+        {
+            Title = "Прогулка",
+        };
+
+        category4 = new Category()
+        {
+            Title = "Театр",
         };
     }
 
@@ -65,10 +90,7 @@ public class DemoHelper
                                 {
                                     Title = "Третьяковская галерея",
                                     FromSearch = true,
-                                    Category = new Category()
-                                    {
-                                        Title = "Галерея",
-                                    },
+                                    Category = category1,
                                     Participants = new List<User>()
                                     {
                                         user1,
@@ -77,16 +99,18 @@ public class DemoHelper
                                     },
                                     PricePerOne = 500,
                                     TotalPrice = 1500,
-                                    Payer = user2
+                                    Payers = new List<User>()
+                                    {
+                                        user1,
+                                        user2,
+                                        user3
+                                    },
                                 },
                                 new Activiti()
                                 {
                                     Title = "Кремль",
                                     FromSearch = true,
-                                    Category = new Category()
-                                    {
-                                        Title = "Музей",
-                                    },
+                                    Category = category2,
                                     Participants = new List<User>()
                                     {
                                         user1,
@@ -95,7 +119,10 @@ public class DemoHelper
                                     },
                                     PricePerOne = 300,
                                     TotalPrice = 900,
-                                    Payer = user3
+                                    Payers = new List<User>()
+                                    {
+                                        user2                                       
+                                    },
                                 }
                             }
 
@@ -109,10 +136,7 @@ public class DemoHelper
                                 {
                                     Title = "Прогулка по парку Зарядье",
                                     FromSearch = false,
-                                    Category = new Category()
-                                    {
-                                        Title = "Прогулка",
-                                    },
+                                    Category = category3, 
                                     Participants = new List<User>()
                                     {
                                         user1,
@@ -120,16 +144,16 @@ public class DemoHelper
                                     },
                                     PricePerOne = 0,
                                     TotalPrice = 0,
-                                    Payer = user2
+                                    Payers = new List<User>()
+                                    {
+                                        user2
+                                    },
                                 },
                                 new Activiti()
                                 {
                                     Title = "Большой театр",
                                     FromSearch = true,
-                                    Category = new Category()
-                                    {
-                                        Title = "Театр",
-                                    },
+                                    Category = category4,
                                     Participants = new List<User>()
                                     {
                                         user1,
@@ -137,7 +161,10 @@ public class DemoHelper
                                     },
                                     PricePerOne = 5000,
                                     TotalPrice = 10000,
-                                    Payer = user2
+                                    Payers = new List<User>()
+                                    {
+                                        user2
+                                    },
                                 }
                             }
 

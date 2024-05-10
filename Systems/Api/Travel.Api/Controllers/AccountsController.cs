@@ -60,5 +60,18 @@ public class AccountsController : ControllerBase
         }
     }
 
-
+    [HttpGet("getid/{email}")]
+    //ЗАЩИТИТЬ
+    public async Task<IActionResult> GetId(String email)
+    {
+        try
+        {
+            var userId = await userAccountService.GetUserIdByEmail(email);
+            return Ok(userId);
+        }
+        catch (ProcessException ex)
+        {
+            return NotFound($"User not found: {ex.Message}");
+        }
+    }
 }

@@ -22,6 +22,7 @@ public static class Bootstrapper
             .AddTripService()
             .AddActivityService()
             .AddUserAccountService()
+            .AddCategoryService()
             .AddHttpClient();
         return service;
     }

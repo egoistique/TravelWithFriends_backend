@@ -7,6 +7,7 @@ using Travel.Context.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Travel.Context;
+using Microsoft.AspNetCore.Mvc;
 
 public class UserAccountService : IUserAccountService
 {
@@ -90,5 +91,13 @@ public class UserAccountService : IUserAccountService
         return user.Status;
     }
 
-
+    public async Task<Guid> GetUserIdByEmail(string email)
+    {
+        var user = await userManager.FindByEmailAsync(email);
+        if (user == null)
+        {
+            throw new ProcessException("User not found");
+        }
+        return user.Id;
+    }
 }

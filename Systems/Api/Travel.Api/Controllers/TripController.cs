@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Travel.Common.Security;
 using Travel.Services.Trips;
 using Travel.Services.Logger;
+using Travel.Context.Entities;
 
 [ApiController]
 [Authorize]
@@ -86,4 +87,38 @@ public class TripController : ControllerBase
         return result;
     }
 
+    [HttpGet("usertrips/{userEmail}")]
+    [AllowAnonymous]
+    public async Task<IEnumerable<TripModel>> GetUsersTrips(string userEmail)
+    {
+        var result = await tripService.GetUsersTrips(userEmail);
+
+        return result;
+    }
+
+    [HttpPost("usertrips/{tripId}/addparticipant")]
+    [AllowAnonymous]
+    public async Task<ActionResult<TripModel>> AddUserToTrip(Guid tripId, [FromBody] string userEmail)
+    {
+        var result = await tripService.AddTripParticipants(tripId, userEmail);
+
+        if (result == null)
+        {
+            return NotFound(); 
+        }
+
+        return Ok(result); 
+    }
+
+    [HttpGet("getdays/{id:Guid}")]
+    [AllowAnonymous]
+    public async Task<IActionResult> GetTripDays([FromRoute] Guid id)
+    {
+        var result = await tripService.GetTripDays(id);
+
+        if (result == null)
+            return NotFound();
+
+        return Ok(result);
+    }
 }
