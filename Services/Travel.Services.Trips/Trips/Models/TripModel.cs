@@ -23,7 +23,10 @@ public class TripModel
 
     public IEnumerable<string> Participants { get; set; }
     public IEnumerable<string> Days { get; set; }
+
+    public string ErrorMessage { get; set; } // Добавляем поле для сообщения об ошибке
 }
+
 
 public class TripModelProfile : Profile
 {

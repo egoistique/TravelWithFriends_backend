@@ -95,4 +95,18 @@ public class TripController : ControllerBase
         return result;
     }
 
+    [HttpPost("usertrips/{tripId}/addparticipant")]
+    [AllowAnonymous]
+    public async Task<ActionResult<TripModel>> AddUserToTrip(Guid tripId, [FromBody] string userEmail)
+    {
+        var result = await tripService.AddTripParticipants(tripId, userEmail);
+
+        if (result == null)
+        {
+            return NotFound(); // Если трип не найден
+        }
+
+        return Ok(result); // Если участник успешно добавлен в трип
+    }
+
 }

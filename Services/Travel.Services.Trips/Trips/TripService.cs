@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Globalization;
 using Travel.Common.Exceptions;
 using Travel.Common.Limits;
@@ -105,27 +106,61 @@ public class TripService : ITripService
         var user = await context.Users
             .FirstOrDefaultAsync(x => x.Email == email);
 
+        if (user != null)
+        {
+            Console.WriteLine($"User with email '{email}' found. UserId: {user.Id}");
+        }
+        else
+        {
+            Console.WriteLine($"User with email '{email}' not found.");
+        }
         return user.Id;
     }
 
-    //public async Task<IEnumerable<TripModel>> AddTripParticipants(Guid tripId)
-    //{
-    //    /////////////////
-    //    using var context = await dbContextFactory.CreateDbContextAsync();
+    public async Task<TripModel> AddTripParticipants(Guid tripId, string email)
+    {  
+        var userId = await GetUserIdByEmail(email);
 
-    //    var trips = await context.Trips
-    //        .Include(x => x.Creator)
-    //        .Include(x => x.Participants)
-    //        .Include(x => x.Days)
-    //        .ThenInclude(d => d.Activities)
-    //        .Where(x => x.Creator.Id == creatorId)
-    //        .Where(x => x.Participants.Id == creatorId)
-    //        .ToListAsync();
+        using var context = await dbContextFactory.CreateDbContextAsync();
 
-    //    var result = mapper.Map<IEnumerable<TripModel>>(trips);
+        var trip = await context.Trips
+            .Include(t => t.Participants)
+            .FirstOrDefaultAsync(t => t.Uid == tripId);
 
-    //    return result;
-    //}
+        if (trip == null)
+        {
+            return new TripModel { ErrorMessage = "Trip not found" };
+        }
+
+        if (trip.Participants.Any(p => p.Id == userId))
+        {
+            // Обработка случая, когда участник уже добавлен
+            return new TripModel { ErrorMessage = "User already added to the trip" };
+        }
+
+        // Получаем пользователя по его Id
+        var user = await context.Users.FindAsync(userId);
+
+        if (user == null)
+        {
+            // Обработка случая, когда пользователь не найден
+            return new TripModel { ErrorMessage = "User not found" };
+        }
+
+        // Добавляем существующего пользователя в коллекцию Participants трипа
+        trip.Participants.Add(user);
+
+        //// Увеличиваем счетчик числа участников трипа
+        //trip.NumOfParticipants++;
+
+        // Сохраняем изменения в базе данных
+        await context.SaveChangesAsync();
+
+        return mapper.Map<TripModel>(trip);
+    }
+
+
+
 
     public async Task<TripModel> Create(CreateModel model)
     {
