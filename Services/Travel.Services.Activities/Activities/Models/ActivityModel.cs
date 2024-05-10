@@ -16,9 +16,8 @@ public class ActivityModel
     public string CategoryTitle { get; set; }
     public int PricePerOne { get; set; }
     public int TotalPrice { get; set; }
-    public Guid PayerId { get; set; }
-    public string PayerName { get; set; }
-    public IEnumerable<string> Participants { get; set; }
+    public IEnumerable<string>? Payers { get; set; }
+    public IEnumerable<string>? Participants { get; set; }
 }
 
 public class ActivityModelProfile : Profile
@@ -32,8 +31,7 @@ public class ActivityModelProfile : Profile
             .ForMember(dest => dest.DayNumber, opt => opt.Ignore()) 
             .ForMember(dest => dest.CategoryId, opt => opt.Ignore())
             .ForMember(dest => dest.CategoryTitle, opt => opt.Ignore())
-            .ForMember(dest => dest.PayerId, opt => opt.Ignore())
-            .ForMember(dest => dest.PayerName, opt => opt.Ignore())
+            .ForMember(dest => dest.Payers, opt => opt.Ignore())
             .ForMember(dest => dest.Participants, opt => opt.Ignore())
             ;
     }
@@ -53,7 +51,6 @@ public class ActivityModelProfile : Profile
             var activity = db.Activities
                 .Include(x => x.Day)
                 .Include(x => x.Category)
-                .Include(x => x.Payer)
                 .FirstOrDefault(x => x.Id == source.Id);
 
 
@@ -61,11 +58,10 @@ public class ActivityModelProfile : Profile
             destination.DayId = activity.Day.Uid;
             destination.DayNumber = activity.Day.Number;           
             destination.CategoryId = activity.Category.Uid;
-            destination.CategoryTitle = activity.Category.Title;  
-            destination.PayerId = activity.Payer.Id;
-            destination.PayerName = activity.Payer.FullName;
+            destination.CategoryTitle = activity.Category.Title;
 
-            destination.Participants = activity.Participants?.Select(x => x.FullName);
+            destination.Payers = activity.Payers?.Select(x => x.Email);
+            destination.Participants = activity.Participants?.Select(x => x.Email);
         }
     }
 }

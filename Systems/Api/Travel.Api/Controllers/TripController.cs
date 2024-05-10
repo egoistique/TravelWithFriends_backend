@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Travel.Common.Security;
 using Travel.Services.Trips;
 using Travel.Services.Logger;
+using Travel.Context.Entities;
 
 [ApiController]
 [Authorize]
@@ -103,10 +104,21 @@ public class TripController : ControllerBase
 
         if (result == null)
         {
-            return NotFound(); // Если трип не найден
+            return NotFound(); 
         }
 
-        return Ok(result); // Если участник успешно добавлен в трип
+        return Ok(result); 
     }
 
+    [HttpGet("getdays/{id:Guid}")]
+    [AllowAnonymous]
+    public async Task<IActionResult> GetTripDays([FromRoute] Guid id)
+    {
+        var result = await tripService.GetTripDays(id);
+
+        if (result == null)
+            return NotFound();
+
+        return Ok(result);
+    }
 }

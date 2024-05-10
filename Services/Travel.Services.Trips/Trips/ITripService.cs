@@ -11,4 +11,5 @@ public interface ITripService
     Task<IEnumerable<PublicatedTripModel>> GetPublicated();
     Task<IEnumerable<TripModel>> GetUsersTrips(string userEmail);
     Task<TripModel> AddTripParticipants(Guid tripId, string email);
+    Task<IEnumerable<Guid>> GetTripDays(Guid tripGuid);
 }

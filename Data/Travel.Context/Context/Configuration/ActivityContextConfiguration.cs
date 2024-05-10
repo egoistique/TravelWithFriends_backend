@@ -20,11 +20,9 @@ public static class ActivityContextConfiguration
             .WithMany(x => x.Activities)
             .HasForeignKey(x => x.CategoryId)
             .OnDelete(DeleteBehavior.Restrict);
-        modelBuilder.Entity<Activiti>()
-            .HasOne(x => x.Payer)
-            .WithMany(x => x.PayedActivities)
-            .HasForeignKey(x => x.PayerId);
 
+
+        modelBuilder.Entity<Activiti>().HasMany(x => x.Payers).WithMany(x => x.PayedActivities).UsingEntity(t => t.ToTable("user_wastes"));
         modelBuilder.Entity<Activiti>().HasMany(x => x.Participants).WithMany(x => x.ParticipatedActivities).UsingEntity(t => t.ToTable("user_activities"));
 
     }

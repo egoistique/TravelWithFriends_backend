@@ -244,7 +244,7 @@ public class TripService : ITripService
         await context.SaveChangesAsync();
     }
 
-    //проверить
+
     public async Task<IEnumerable<PublicatedTripModel>> GetPublicated()
     {
         using var context = await dbContextFactory.CreateDbContextAsync();
@@ -261,5 +261,27 @@ public class TripService : ITripService
         return result;
     }
 
+    public async Task<IEnumerable<Guid>> GetTripDays(Guid tripGuid)
+    {
+        using var context = await dbContextFactory.CreateDbContextAsync();
+
+        var trip = await context.Trips
+            .FirstOrDefaultAsync(x => x.Uid == tripGuid);
+
+        if (trip == null)
+        {
+            return Enumerable.Empty<Guid>();
+        }
+
+        var tripId = trip.Id;
+
+        var days = await context.Days
+            .Where(t => t.TripId == tripId)
+            .ToListAsync();
+
+        var result = days.Select(day => day.Uid);
+
+        return result;
+    }
 
 }

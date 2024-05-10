@@ -77,7 +77,12 @@ public class DemoHelper
                                     },
                                     PricePerOne = 500,
                                     TotalPrice = 1500,
-                                    Payer = user2
+                                    Payers = new List<User>()
+                                    {
+                                        user1,
+                                        user2,
+                                        user3
+                                    },
                                 },
                                 new Activiti()
                                 {
@@ -95,7 +100,10 @@ public class DemoHelper
                                     },
                                     PricePerOne = 300,
                                     TotalPrice = 900,
-                                    Payer = user3
+                                    Payers = new List<User>()
+                                    {
+                                        user2                                       
+                                    },
                                 }
                             }
 
@@ -120,7 +128,10 @@ public class DemoHelper
                                     },
                                     PricePerOne = 0,
                                     TotalPrice = 0,
-                                    Payer = user2
+                                    Payers = new List<User>()
+                                    {
+                                        user2
+                                    },
                                 },
                                 new Activiti()
                                 {
@@ -137,7 +148,10 @@ public class DemoHelper
                                     },
                                     PricePerOne = 5000,
                                     TotalPrice = 10000,
-                                    Payer = user2
+                                    Payers = new List<User>()
+                                    {
+                                        user2
+                                    },
                                 }
                             }
 

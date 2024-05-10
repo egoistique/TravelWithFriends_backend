@@ -13,12 +13,12 @@ public class CreateModel
     public string Title { get; set; }
     public bool FromSearch { get; set; }
     public Guid CategoryId { get; set; }
-    public string CategoryTitle { get; set; }
     public int PricePerOne { get; set; }
     public int TotalPrice { get; set; }
-    public Guid PayerId { get; set; }
-
+    public IEnumerable<string> Participants { get; set; } // список почт участников
+    public IEnumerable<string> Payers { get; set; } // список почт плательщиков
 }
+
 
 public class CreateModelProfile : Profile
 {
@@ -26,8 +26,9 @@ public class CreateModelProfile : Profile
     {
         CreateMap<CreateModel, Activiti>()
             .ForMember(dest => dest.DayId, opt => opt.Ignore())
-            .ForMember(dest => dest.CategoryId, opt => opt.Ignore())  
-            .ForMember(dest => dest.PayerId, opt => opt.Ignore())
+            .ForMember(dest => dest.CategoryId, opt => opt.Ignore())
+            .ForMember(dest => dest.Participants, opt => opt.Ignore())
+            .ForMember(dest => dest.Payers, opt => opt.Ignore())
             .AfterMap<CreateModelActions>();
     }
 
@@ -50,12 +51,28 @@ public class CreateModelProfile : Profile
             
             var category = db.Categories.FirstOrDefault(x => x.Uid == source.CategoryId);
 
-            destination.CategoryId = category.Id;  
-            
-            var payer = db.Users.FirstOrDefault(x => x.Id == source.PayerId);
+            destination.CategoryId = category.Id;
 
-            destination.PayerId = payer.Id;
+           // destination.Participants = GetUsersByEmails(source.Participants, db).ToList();
+
+           // destination.Payers = GetUsersByEmails(source.Payers, db).ToList();
         }
+
+        private IEnumerable<User> GetUsersByEmails(IEnumerable<string> emails, MainDbContext db)
+        {
+            var users = new List<User>();
+
+            foreach (var email in emails)
+            {
+                var user = db.Users.FirstOrDefault(u => u.Email == email);
+                if (user != null)
+                    users.Add(user);
+                // else: Обработка случая, когда пользователь с указанным email не найден
+            }
+
+            return users;
+        }
+
     }
 }
 
@@ -82,14 +99,20 @@ public class CreateBookModelValidator : AbstractValidator<CreateModel>
                 var found = context.Categories.Any(a => a.Uid == id);
                 return found;
             }).WithMessage("Category not found");
-        
-        RuleFor(x => x.PayerId)         
-            .Must((id) =>
+
+        RuleFor(x => x.Participants)
+           .Must((emails) =>
+           {
+               using var context = contextFactory.CreateDbContext();
+               return emails.All(email => context.Users.Any(u => u.Email == email));
+           }).WithMessage("One or more participants not found");
+
+        RuleFor(x => x.Payers)
+            .Must((emails) =>
             {
                 using var context = contextFactory.CreateDbContext();
-                var found = context.Users.Any(a => a.Id == id);
-                return found;
-            }).WithMessage("Payer not found");
+                return emails.All(email => context.Users.Any(u => u.Email == email));
+            }).WithMessage("One or more payers not found");
 
         RuleFor(x => x.Title)
             .MaximumLength(1000).WithMessage("Maximum length is 100");

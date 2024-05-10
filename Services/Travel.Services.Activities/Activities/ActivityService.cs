@@ -36,7 +36,7 @@ public class ActivityService : IActivityService
         var activities = await context.Activities
             .Include(x => x.Day)
             .Include(x => x.Category)
-            .Include(x => x.Payer)
+            .Include(x => x.Payers)
             .Include(x => x.Participants)
             .ToListAsync();
 
@@ -52,7 +52,7 @@ public class ActivityService : IActivityService
         var activity = await context.Activities
             .Include(x => x.Day)
             .Include(x => x.Category)
-            .Include(x => x.Payer)
+            .Include(x => x.Payers)
             .Include(x => x.Participants)
             .FirstOrDefaultAsync(x => x.Uid == id);
 
@@ -68,7 +68,7 @@ public class ActivityService : IActivityService
         var activities = await context.Activities
             .Include(x => x.Day)
             .Include(x => x.Category)
-            .Include(x => x.Payer)
+            .Include(x => x.Payers)
             .Include(x => x.Participants)
             .Where(x => x.Day.Uid == dayId)
             .ToListAsync();
@@ -77,7 +77,23 @@ public class ActivityService : IActivityService
 
         return result;
     }
+    public async Task<Guid> GetUserIdByEmail(string email)
+    {
+        using var context = await dbContextFactory.CreateDbContextAsync();
 
+        var user = await context.Users
+            .FirstOrDefaultAsync(x => x.Email == email);
+
+        if (user != null)
+        {
+            Console.WriteLine($"User with email '{email}' found. UserId: {user.Id}");
+        }
+        else
+        {
+            Console.WriteLine($"User with email '{email}' not found.");
+        }
+        return user.Id;
+    }
 
     public async Task<ActivityModel> Create(CreateModel model)
     {
@@ -117,8 +133,28 @@ public class ActivityService : IActivityService
         }
 
         var activity = mapper.Map<Activiti>(model);
+        activity.Participants = new List<User>();
+        activity.Payers = new List<User>();
 
         await context.Activities.AddAsync(activity);
+       // await context.SaveChangesAsync();
+
+        IEnumerable<string> emailsPayers = model.Payers;
+        IEnumerable<string> emailsParticipants = model.Participants;
+
+        foreach (var email in emailsPayers)
+        {
+            var userId = await GetUserIdByEmail(email);
+            var user = await context.Users.FindAsync(userId);
+            activity.Payers.Add(user);
+        }
+
+        foreach (var email in emailsParticipants)
+        {
+            var userId = await GetUserIdByEmail(email);
+            var user = await context.Users.FindAsync(userId);
+            activity.Participants.Add(user);
+        }
 
         await context.SaveChangesAsync();
 
