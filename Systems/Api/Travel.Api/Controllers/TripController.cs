@@ -86,4 +86,13 @@ public class TripController : ControllerBase
         return result;
     }
 
+    [HttpGet("usertrips/{userEmail}")]
+    [AllowAnonymous]
+    public async Task<IEnumerable<TripModel>> GetUsersTrips(string userEmail)
+    {
+        var result = await tripService.GetUsersTrips(userEmail);
+
+        return result;
+    }
+
 }

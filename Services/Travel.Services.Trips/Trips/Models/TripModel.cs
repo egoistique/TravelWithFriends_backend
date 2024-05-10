@@ -61,7 +61,7 @@ public class TripModelProfile : Profile
             destination.CreatorId = trip.Creator.Id;
             destination.CreatorName = trip.Creator.FullName;
 
-            destination.Participants = trip.Participants?.Select(x => x.FullName);
+            destination.Participants = trip.Participants?.Select(x => x.Email);
 
             destination.Days = trip.Days.Select(day =>
             {

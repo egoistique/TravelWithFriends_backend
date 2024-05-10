@@ -9,4 +9,5 @@ public interface ITripService
     Task Update(Guid id, UpdateModel model);
     Task Delete(Guid id);
     Task<IEnumerable<PublicatedTripModel>> GetPublicated();
+    Task<IEnumerable<TripModel>> GetUsersTrips(string userEmail);
 }

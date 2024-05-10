@@ -12,6 +12,7 @@
   
   <ItemGroup>
     <ProjectReference Include="..\..\Data\Travel.Context\Travel.Context.csproj" />
+    <ProjectReference Include="..\Travel.Services.UserAccount\Travel.Services.UserAccount.csproj" />
   </ItemGroup>
 
 </Project>

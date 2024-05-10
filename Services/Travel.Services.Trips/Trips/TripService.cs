@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Globalization;
 using Travel.Common.Exceptions;
@@ -6,6 +7,7 @@ using Travel.Common.Limits;
 using Travel.Common.Validator;
 using Travel.Context;
 using Travel.Context.Entities;
+using Travel.Services.UserAccount;
 
 namespace Travel.Services.Trips;
 
@@ -76,7 +78,54 @@ public class TripService : ITripService
 
         return result;
     }
+    public async Task<IEnumerable<TripModel>> GetUsersTrips(string userEmail)
+    {
 
+        var userId = await GetUserIdByEmail(userEmail);
+
+        using var context = await dbContextFactory.CreateDbContextAsync();
+
+        var trips = await context.Trips
+            .Include(x => x.Creator)
+            .Include(x => x.Participants)
+            //.Include(x => x.Days)
+            //    .ThenInclude(d => d.Activities)
+            .Where(x => x.Creator.Id == userId || x.Participants.Any(p => p.Id == userId))
+            .ToListAsync();
+
+        var result = mapper.Map<IEnumerable<TripModel>>(trips);
+
+        return result;
+    }
+
+    public async Task<Guid> GetUserIdByEmail(string email)
+    {
+        using var context = await dbContextFactory.CreateDbContextAsync();
+
+        var user = await context.Users
+            .FirstOrDefaultAsync(x => x.Email == email);
+
+        return user.Id;
+    }
+
+    //public async Task<IEnumerable<TripModel>> AddTripParticipants(Guid tripId)
+    //{
+    //    /////////////////
+    //    using var context = await dbContextFactory.CreateDbContextAsync();
+
+    //    var trips = await context.Trips
+    //        .Include(x => x.Creator)
+    //        .Include(x => x.Participants)
+    //        .Include(x => x.Days)
+    //        .ThenInclude(d => d.Activities)
+    //        .Where(x => x.Creator.Id == creatorId)
+    //        .Where(x => x.Participants.Id == creatorId)
+    //        .ToListAsync();
+
+    //    var result = mapper.Map<IEnumerable<TripModel>>(trips);
+
+    //    return result;
+    //}
 
     public async Task<TripModel> Create(CreateModel model)
     {
@@ -160,11 +209,13 @@ public class TripService : ITripService
         await context.SaveChangesAsync();
     }
 
+    //проверить
     public async Task<IEnumerable<PublicatedTripModel>> GetPublicated()
     {
         using var context = await dbContextFactory.CreateDbContextAsync();
 
         var trips = await context.Trips
+            .Where(t => t.IsPublicated) // Фильтруем по полю IsPublicated
             .Include(x => x.Creator)
             .Include(x => x.Days)
             .ThenInclude(d => d.Activities)
@@ -174,5 +225,6 @@ public class TripService : ITripService
 
         return result;
     }
+
 
 }
