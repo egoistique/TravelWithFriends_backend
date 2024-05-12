@@ -37,6 +37,8 @@
     <ProjectReference Include="..\..\..\Services\Travel.Services.Categories\Travel.Services.Categories.csproj" />
     <ProjectReference Include="..\..\..\Services\Travel.Services.Logger\Travel.Services.Logger.csproj" />
     <ProjectReference Include="..\..\..\Services\Travel.Services.Settings\Travel.Services.Settings.csproj" />
+    <ProjectReference Include="..\..\..\Services\Travel.Services.Statistics\Travel.Services.Statistics.csproj" />
+    <ProjectReference Include="..\..\..\Services\Travel.Services.Stat\Travel.Services.Stat.csproj" />
     <ProjectReference Include="..\..\..\Services\Travel.Services.Trips\Travel.Services.Trips.csproj" />
     <ProjectReference Include="..\..\..\Services\Travel.Services.UserAccount\Travel.Services.UserAccount.csproj" />
     <ProjectReference Include="..\..\..\Shared\Travel.Common\Travel.Common.csproj" />

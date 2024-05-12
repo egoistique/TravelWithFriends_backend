@@ -171,6 +171,28 @@ public class ActivityService : IActivityService
 
         activity = mapper.Map(model, activity);
 
+        activity.Payers.Clear();
+        activity.Participants.Clear();
+
+        IEnumerable<string> emailsPayers = model.Payers;
+        IEnumerable<string> emailsParticipants = model.Participants;
+
+        foreach (var email in emailsPayers)
+        {
+            var userId = await GetUserIdByEmail(email);
+            var user = await context.Users.FindAsync(userId);
+            activity.Payers.Add(user);
+        }
+
+        foreach (var email in emailsParticipants)
+        {
+            var userId = await GetUserIdByEmail(email);
+            var user = await context.Users.FindAsync(userId);
+            activity.Participants.Add(user);
+        }
+
+
+
         context.Activities.Update(activity);
 
         await context.SaveChangesAsync();

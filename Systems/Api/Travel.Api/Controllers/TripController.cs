@@ -7,6 +7,7 @@ using Travel.Common.Security;
 using Travel.Services.Trips;
 using Travel.Services.Logger;
 using Travel.Context.Entities;
+using Swashbuckle.AspNetCore.Annotations;
 
 [ApiController]
 [Authorize]
@@ -27,6 +28,7 @@ public class TripController : ControllerBase
     [HttpGet("")]
     // [Authorize(AppScopes.TripsRead)]
     [AllowAnonymous]
+    [SwaggerOperation(Summary = "Get all trips ", Description = "Returns all trips")]
     public async Task<IEnumerable<TripModel>> GetAll()
     {
         var result = await tripService.GetAll();
@@ -36,6 +38,7 @@ public class TripController : ControllerBase
 
     [HttpGet("{id:Guid}")]
     [Authorize(AppScopes.TripsRead)]
+    [SwaggerOperation(Summary = "Get trip by ID", Description = "Returns a trip by its unique identifier.")]
     public async Task<IActionResult> Get([FromRoute] Guid id)
     {
         var result = await tripService.GetById(id);
@@ -55,8 +58,11 @@ public class TripController : ControllerBase
     }
 
     [HttpPost("")]
-    //[Authorize(AppScopes.TripsWrite)]
-    [AllowAnonymous]
+    [Authorize(AppScopes.TripsWrite)]
+    //[AllowAnonymous]
+    [SwaggerOperation(Summary = "Create a new trip", Description = "Creates a new trip.")]
+    [SwaggerResponse(StatusCodes.Status201Created, "Returns the created trip.", typeof(TripModel))]
+    [SwaggerResponse(StatusCodes.Status400BadRequest, "Invalid input parameters.")]
     public async Task<TripModel> Create(CreateModel request)
     {
         var result = await tripService.Create(request);

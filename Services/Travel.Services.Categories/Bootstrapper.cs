@@ -1,7 +1,6 @@
-﻿namespace Travel.Services.Activities;
+﻿namespace Travel.Services.Categories;
 
 using Microsoft.Extensions.DependencyInjection;
-using Travel.Services.Categories;
 
 public static class Bootstrapper
 {
