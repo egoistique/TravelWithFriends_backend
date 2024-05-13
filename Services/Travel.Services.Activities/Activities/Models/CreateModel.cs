@@ -51,28 +51,8 @@ public class CreateModelProfile : Profile
             
             var category = db.Categories.FirstOrDefault(x => x.Uid == source.CategoryId);
 
-            destination.CategoryId = category.Id;
-
-           // destination.Participants = GetUsersByEmails(source.Participants, db).ToList();
-
-           // destination.Payers = GetUsersByEmails(source.Payers, db).ToList();
-        }
-
-        private IEnumerable<User> GetUsersByEmails(IEnumerable<string> emails, MainDbContext db)
-        {
-            var users = new List<User>();
-
-            foreach (var email in emails)
-            {
-                var user = db.Users.FirstOrDefault(u => u.Email == email);
-                if (user != null)
-                    users.Add(user);
-                // else: Обработка случая, когда пользователь с указанным email не найден
-            }
-
-            return users;
-        }
-
+            destination.CategoryId = category.Id;                     
+        }     
     }
 }
 

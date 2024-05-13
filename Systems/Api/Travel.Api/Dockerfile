@@ -20,6 +20,7 @@ COPY ["Services/Travel.Services.UserAccount/Travel.Services.UserAccount.csproj",
 COPY ["Services/Travel.Services.Activities/Travel.Services.Activities.csproj", "Services/Travel.Services.Activities/"]
 COPY ["Services/Travel.Services.Categories/Travel.Services.Categories.csproj", "Services/Travel.Services.Categories/"]
 COPY ["Services/Travel.Services.Logger/Travel.Services.Logger.csproj", "Services/Travel.Services.Logger/"]
+COPY ["Services/Travel.Services.Stat/Travel.Services.Stat.csproj", "Services/Travel.Services.Stat/"]
 COPY ["Services/Travel.Services.Trips/Travel.Services.Trips.csproj", "Services/Travel.Services.Trips/"]
 COPY ["Systems/Api/Travel.Api.Settings/Travel.Api.Settings.csproj", "Systems/Api/Travel.Api.Settings/"]
 RUN dotnet restore "./Systems/Api/Travel.Api/./Travel.Api.csproj"
