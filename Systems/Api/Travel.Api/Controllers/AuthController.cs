@@ -8,6 +8,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using Swashbuckle.AspNetCore.Annotations;
 
 [ApiController]
 [ApiVersion("1.0")]
@@ -23,6 +24,7 @@ public class AuthController : ControllerBase
     }
 
     [HttpPost]
+    [SwaggerOperation(Summary = "Authorization", Description = "")]
     public async Task<IActionResult> AuthenticateAsync([FromBody] LoginRequest request)
     {
         try

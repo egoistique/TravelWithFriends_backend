@@ -5,6 +5,7 @@ using Travel.Services.UserAccount;
 using Microsoft.AspNetCore.Mvc;
 using Asp.Versioning;
 using Travel.Common.Exceptions;
+using Swashbuckle.AspNetCore.Annotations;
 
 [ApiController]
 [ApiVersion("1.0")]
@@ -24,6 +25,7 @@ public class AccountsController : ControllerBase
     }
 
     [HttpPost("")]
+    [SwaggerOperation(Summary = "Register user", Description = "")]
     public async Task<UserAccountModel> Register([FromQuery] RegisterUserAccountModel request)
     {
         var user = await userAccountService.Create(request);
@@ -31,7 +33,7 @@ public class AccountsController : ControllerBase
     }
 
     [HttpPut("status/{userId}")]
-    //ЗАЩИТИТЬ
+    [SwaggerOperation(Summary = "Change user status", Description = "")]
     public async Task<IActionResult> ChangeUserStatus(Guid userId, [FromBody] ChangeUserStatusModel model)
     {
         try
@@ -46,7 +48,7 @@ public class AccountsController : ControllerBase
     }
 
     [HttpGet("status/{userId}")]
-    //ЗАЩИТИТЬ
+    [SwaggerOperation(Summary = "Get status", Description = "")]
     public async Task<IActionResult> GetStatus(Guid userId)
     {
         try
@@ -61,7 +63,7 @@ public class AccountsController : ControllerBase
     }
 
     [HttpGet("getid/{email}")]
-    //ЗАЩИТИТЬ
+    [SwaggerOperation(Summary = "Get user id", Description = "")]
     public async Task<IActionResult> GetId(String email)
     {
         try

@@ -37,7 +37,8 @@ public class TripController : ControllerBase
     }
 
     [HttpGet("{id:Guid}")]
-    [Authorize(AppScopes.TripsRead)]
+    //[Authorize(AppScopes.TripsRead)]
+    [AllowAnonymous]
     [SwaggerOperation(Summary = "Get trip by ID", Description = "Returns a trip by its unique identifier.")]
     public async Task<IActionResult> Get([FromRoute] Guid id)
     {
@@ -51,6 +52,7 @@ public class TripController : ControllerBase
 
     [HttpGet("creator/{creatorId:Guid}")]
     [AllowAnonymous]
+    [SwaggerOperation(Summary = "Get trip by Creator ID", Description = "")]
     public async Task<IEnumerable<TripModel>> GetByCreatorId([FromRoute] Guid creatorId)
     {
         var result = await tripService.GetByCreatorId(creatorId);
@@ -72,6 +74,7 @@ public class TripController : ControllerBase
 
     [HttpPut("{id:Guid}")]
     [Authorize(AppScopes.TripsWrite)]
+    [SwaggerOperation(Summary = "Update trip by trip ID", Description = "")]
     public async Task Update([FromRoute] Guid id, UpdateModel request)
     {
         await tripService.Update(id, request);
@@ -79,6 +82,7 @@ public class TripController : ControllerBase
 
     [HttpDelete("{id:Guid}")]
     [Authorize(AppScopes.TripsWrite)]
+    [SwaggerOperation(Summary = "Delete trip by trip ID", Description = "")]
     public async Task Delete([FromRoute] Guid id)
     {
         await tripService.Delete(id);
@@ -86,6 +90,7 @@ public class TripController : ControllerBase
 
     [HttpGet("publicated/")]
     [AllowAnonymous]
+    [SwaggerOperation(Summary = "Get publicated trips", Description = "")]
     public async Task<IEnumerable<PublicatedTripModel>> GetPublicated()
     {
         var result = await tripService.GetPublicated();
@@ -95,6 +100,7 @@ public class TripController : ControllerBase
 
     [HttpGet("usertrips/{userEmail}")]
     [AllowAnonymous]
+    [SwaggerOperation(Summary = "Get the trips in which the user is a member", Description = "User as a participant or creator")]
     public async Task<IEnumerable<TripModel>> GetUsersTrips(string userEmail)
     {
         var result = await tripService.GetUsersTrips(userEmail);
@@ -104,6 +110,7 @@ public class TripController : ControllerBase
 
     [HttpPost("usertrips/{tripId}/addparticipant")]
     [AllowAnonymous]
+    [SwaggerOperation(Summary = "Add a participant to the trip", Description = "")]
     public async Task<ActionResult<TripModel>> AddUserToTrip(Guid tripId, [FromBody] string userEmail)
     {
         var result = await tripService.AddTripParticipants(tripId, userEmail);
@@ -118,6 +125,7 @@ public class TripController : ControllerBase
 
     [HttpGet("getdays/{id:Guid}")]
     [AllowAnonymous]
+    [SwaggerOperation(Summary = "Get trip days by trip ID", Description = "")]
     public async Task<IActionResult> GetTripDays([FromRoute] Guid id)
     {
         var result = await tripService.GetTripDays(id);

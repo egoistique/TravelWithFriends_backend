@@ -1,6 +1,7 @@
 ﻿using Asp.Versioning;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 using Travel.Common.Security;
 using Travel.Services.Activities;
 using Travel.Services.Categories;
@@ -9,7 +10,6 @@ using Travel.Services.Logger;
 namespace Travel.Api.App;
 
 [ApiController]
-//[Authorize]
 [ApiVersion("1.0")]
 [ApiExplorerSettings(GroupName = "Product")]
 [Route("v{version:apiVersion}/[controller]")]
@@ -25,7 +25,7 @@ public class CategoryController : Controller
     }
 
     [HttpGet("")]
-    //[Authorize(AppScopes.TripsRead)]
+    [SwaggerOperation(Summary = "Get all categories", Description = "")]
     public async Task<IEnumerable<CategoryModel>> GetAll()
     {
         var result = await categoryService.GetAll();
@@ -34,7 +34,7 @@ public class CategoryController : Controller
     }
 
     [HttpGet("{id:Guid}")]
-    //[Authorize(AppScopes.TripsRead)]
+    [SwaggerOperation(Summary = "Get category by id", Description = "")]
     public async Task<IActionResult> Get([FromRoute] Guid id)
     {
         var result = await categoryService.GetById(id);
@@ -46,7 +46,7 @@ public class CategoryController : Controller
     }
 
     [HttpDelete("{id:Guid}")]
-    //[Authorize(AppScopes.TripsWrite)]
+    [SwaggerOperation(Summary = "Delete category", Description = "")]
     public async Task Delete([FromRoute] Guid id)
     {
         await categoryService.Delete(id);

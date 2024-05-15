@@ -8,6 +8,7 @@ using Travel.Services.Statistics;
 using Travel.Services.Logger;
 using Travel.Context.Entities;
 using Travel.Services.Trips;
+using Swashbuckle.AspNetCore.Annotations;
 
 [ApiController]
 //[Authorize]
@@ -26,7 +27,8 @@ public class StatisticsController : Controller
     }
 
 
-    [HttpGet("{id:Guid}")]    
+    [HttpGet("{id:Guid}")]
+    [SwaggerOperation(Summary = "Get statistics", Description = "")]
     public async Task<IActionResult> Get([FromRoute] Guid id)
     {
         var result = await statService.GetAll(id);
