@@ -27,8 +27,17 @@ public class StatisticsController : Controller
     }
 
 
+    /// <summary>
+    /// Gets statistics by ID.
+    /// </summary>
+    /// <param name="id">The statistics ID.</param>
+    /// <returns>The statistics with the specified ID.</returns>
     [HttpGet("{id:Guid}")]
-    [SwaggerOperation(Summary = "Get statistics", Description = "")]
+    [SwaggerOperation(Summary = "Get statistics", Description = "Retrieves statistics by its ID.")]
+    [SwaggerResponse(200, "Success", typeof(StatisticsModel))]
+    [SwaggerResponse(400, "Bad Request", typeof(string))]
+    [SwaggerResponse(401, "Unauthorized", typeof(string))]
+    [SwaggerResponse(404, "Not Found", typeof(string))]
     public async Task<IActionResult> Get([FromRoute] Guid id)
     {
         var result = await statService.GetAll(id);
