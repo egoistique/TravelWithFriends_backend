@@ -55,9 +55,13 @@ public static class SwaggerConfiguration
 
             options.CustomSchemaIds(x => x.FullName);
 
-            var xmlPath = Path.Combine(AppContext.BaseDirectory, "api.xml");
+            // Подключение XML-документации
+            var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+            var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
             if (File.Exists(xmlPath))
                 options.IncludeXmlComments(xmlPath);
+
+            options.ExampleFilters();
 
             options.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
             {

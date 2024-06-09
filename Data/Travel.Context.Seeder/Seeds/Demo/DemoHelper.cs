@@ -13,7 +13,13 @@ public class DemoHelper
     private Category category1;
     private Category category2;    
     private Category category3;    
-    private Category category4;
+    private Category category4;    
+    private Category category5;   
+    private Category category6;    
+    private Category category7;
+    private Category category8;
+    private Category category9;
+    private Category category10;
 
     public DemoHelper()
     {
@@ -37,23 +43,48 @@ public class DemoHelper
 
         category1 = new Category
         {
-            Title = "Галерея"
+            Title = "Еда"
         };
 
         category2 = new Category()
         {
-            Title = "Музей",
+            Title = "Жилье",
         };
 
         category3 = new Category()
         {
-            Title = "Прогулка",
+            Title = "Развлечения",
         };
 
         category4 = new Category()
         {
-            Title = "Театр",
+            Title = "Транспорт",
         };
+        category5 = new Category()
+        {
+            Title = "Покупки",
+        };
+                category6 = new Category()
+        {
+            Title = "Здоровье",
+        };
+                category7 = new Category()
+        {
+            Title = "Экскурсия",
+        };
+        category8 = new Category()
+        {
+            Title = "Культура",
+        };
+        category9 = new Category()
+        {
+            Title = "Сувениры",
+        };
+        category10 = new Category()
+        {
+            Title = "Другое",
+        };
+
     }
 
     public IEnumerable<Trip> GetTrips

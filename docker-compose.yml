@@ -4,10 +4,12 @@ services:
 
   travel_postgresql:
     image: postgres:14.1
+    container_name: travel_postgresql
     
             
   travel_api:
     image: ${DOCKER_REGISTRY-}travelapi
+    container_name: travel_api
     build:
       context: .
       dockerfile: Systems/Api/Travel.Api/Dockerfile
@@ -16,6 +18,7 @@ services:
 
   travel_identity:
     image: ${DOCKER_REGISTRY-}travellidentity
+    container_name: travel_identity
     build:
       context: .
       dockerfile: Systems/Identity/Travel.Identity/Dockerfile
@@ -23,3 +26,18 @@ services:
       - travel_postgresql
       - travel_api
 
+  travel_frontend:
+    container_name: travel_frontend
+    build:
+      context: ./TravelWithFriends-web  
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    depends_on:
+      - travel_postgresql
+      - travel_api
+
+  nginx:
+    image: nginx:mainline
+    container_name: nginx
+    

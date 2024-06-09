@@ -81,6 +81,45 @@ public class UserAccountService : IUserAccountService
 
         return true;
     }
+    public async Task<bool> Delete(string email)
+    {
+        using var context = await dbContextFactory.CreateDbContextAsync();
+        var user = await context.Users
+            .Include(u => u.CreatedTrips)
+            .Include(u => u.ParticipatedTrips)
+            .FirstOrDefaultAsync(u => u.Email == email);
+
+        if (user == null)
+        {
+            throw new ProcessException($"User with email {email} not found.");
+        }
+
+        foreach (var trip in user.CreatedTrips)
+        {
+            var participantCount = await context.Trips
+                .Where(t => t.Id == trip.Id)
+                .SelectMany(t => t.Participants)
+                .CountAsync();
+
+            if (participantCount > 1)
+            {
+                Console.WriteLine("Нельзя удалить пользователя, если в его трипах более одного участника"); 
+                return false;
+            }
+        }
+
+        var result = await userManager.DeleteAsync(user);
+        if (!result.Succeeded)
+        {
+            Console.WriteLine("Удаление не удалось"); 
+            return false;
+        }
+
+        return true;
+    }
+
+
+
 
     public async Task<UserStatus> GetStatus(Guid userId)
     {

@@ -76,4 +76,26 @@ public class AccountsController : ControllerBase
             return NotFound($"User not found: {ex.Message}");
         }
     }
+
+    [HttpDelete("{email}")]
+    [SwaggerOperation(Summary = "Delete user", Description = "Deletes a user if they have no trips or only trips with a single participant.")]
+    public async Task<IActionResult> DeleteUser(string email)
+    {
+        try
+        {
+            var result = await userAccountService.Delete(email);
+            if (result)
+            {
+                return Ok("User deleted successfully.");
+            }
+            else
+            {
+                return BadRequest("Cannot delete user because they have trips with multiple participants.");
+            }
+        }
+        catch (ProcessException ex)
+        {
+            return BadRequest($"Failed to delete user: {ex.Message}");
+        }
+    }
 }
