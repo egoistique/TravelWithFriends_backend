@@ -163,6 +163,8 @@ public class ActivityService : IActivityService
 
     public async Task Update(Guid id, UpdateModel model)
     {
+        Console.WriteLine($"{model.ToString}");
+
         await updateModelValidator.CheckAsync(model);
 
         using var context = await dbContextFactory.CreateDbContextAsync();

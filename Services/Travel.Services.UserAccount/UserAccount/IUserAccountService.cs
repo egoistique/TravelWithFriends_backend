@@ -16,4 +16,5 @@ public interface IUserAccountService
     Task<bool> ChangeUserStatus(Guid userId, UserStatus newStatus);
     Task<UserStatus> GetStatus(Guid userId);
     Task<Guid> GetUserIdByEmail(String email);
+    Task<bool> Delete(string email);
 }

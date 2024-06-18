@@ -9,9 +9,20 @@ using Travel.Context.Entities;
 using Travel.Context;
 
 namespace Travel.Services.Categories;
+
+/// <summary>
+/// Model representing a category.
+/// </summary>
 public class CategoryModel
 {
+    /// <summary>
+    /// The ID of the category.
+    /// </summary>
     public Guid Id { get; set; }
+
+    /// <summary>
+    /// The title of the category.
+    /// </summary>
     public string Title { get; set; }
 }
 

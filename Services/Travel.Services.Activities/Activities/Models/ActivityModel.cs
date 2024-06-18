@@ -5,12 +5,18 @@ using Travel.Context;
 
 namespace Travel.Services.Activities;
 
+/// <summary>
+/// Model for activity.
+/// </summary>
 public class ActivityModel
 {
     public Guid Id { get; set; }
     public Guid DayId { get; set; }
     public int DayNumber { get; set; }
     public string Title { get; set; }
+    /// <summary>
+    /// The From Search indicator.
+    /// </summary>
     public bool FromSearch { get; set; }
     public Guid CategoryId { get; set; }
     public string CategoryTitle { get; set; }
