@@ -1,65 +1,24 @@
 version: '3.4'
 
 services:
-  travel_postgresql:
-    image: postgres:14
-    container_name: travel_postgresql
-    environment:
-      - POSTGRES_NAME=8T8FCvBG2tj923
-      - POSTGRES_USER=8T8FCvBG2tj923
-      - POSTGRES_PASSWORD=Z42C5t7MtnX1qh
-    networks:
-      - shared_travel_net
-    volumes:      
-      - travel_data:/var/lib/postgresql/data
 
+  travel_postgresql:
+    image: postgres:14.1
+    
+            
   travel_api:
-    image: raiden20/travel_api:1.0
-    container_name: travel_api
+    image: ${DOCKER_REGISTRY-}travelapi
+    build:
+      context: .
+      dockerfile: Systems/Api/Travel.Api/Dockerfile
     depends_on:
       - travel_postgresql
-    networks:
-      - shared_travel_net
-    env_file:
-      - env.api
 
   travel_identity:
-    image: raiden20/travel_identity:1.0
-    container_name: travel_identity
+    image: ${DOCKER_REGISTRY-}travellidentity
+    build:
+      context: .
+      dockerfile: Systems/Identity/Travel.Identity/Dockerfile
     depends_on:
       - travel_postgresql
       - travel_api
-    networks:
-      - shared_travel_net
-    env_file:
-      - env.identity
-
-  travel_frontend:
-    image: raiden20/travel_frontend:1.0
-    container_name: travel_frontend
-    depends_on:
-      - travel_api
-    networks:
-      - shared_travel_net
-
-  nginx:
-    image: nginx:alpine
-    restart: on-failure
-    container_name: nginx
-    volumes:
-      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
-      - ./nginx/ssl/private.key:/etc/ssl/private.key
-      - ./nginx/ssl/www_travel_with_friends_ru_2024_12_27.crt:/etc/ssl/bundle.crt
-      - ./nginx/dhparams4096.pem:/dhparams4096.pem
-    ports:
-      - 80:80
-      - 443:443
-    networks:
-      - shared_travel_net
-
-networks:
-  shared_travel_net:  
-    name: shared_travel_net
-
-volumes:
-  travel_data:
