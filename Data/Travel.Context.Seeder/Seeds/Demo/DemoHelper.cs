@@ -167,7 +167,7 @@ public class DemoHelper
                                 {
                                     Title = "Прогулка по парку Зарядье",
                                     FromSearch = false,
-                                    Category = category3, 
+                                    Category = category3,
                                     Participants = new List<User>()
                                     {
                                         user1,
@@ -185,6 +185,131 @@ public class DemoHelper
                                     Title = "Большой театр",
                                     FromSearch = true,
                                     Category = category4,
+                                    Participants = new List<User>()
+                                    {
+                                        user1,
+                                        user2
+                                    },
+                                    PricePerOne = 5000,
+                                    TotalPrice = 10000,
+                                    Payers = new List<User>()
+                                    {
+                                        user2
+                                    },
+                                }
+                            }
+                        },
+                        new TripDay()
+                        {
+                            Number = 3,
+                            Activities = new List<Activiti>()
+                            {
+                                new Activiti()
+                                {
+                                    Title = "Покупки в пятерочке",
+                                    FromSearch = false,
+                                    Category = category5,
+                                    Participants = new List<User>()
+                                    {
+                                        user1,
+                                        user3
+                                    },
+                                    PricePerOne = 200,
+                                    TotalPrice = 400,
+                                    Payers = new List<User>()
+                                    {
+                                        user2
+                                    },
+                                },
+                                new Activiti()
+                                {
+                                    Title = "Лекарства",
+                                    FromSearch = true,
+                                    Category = category6,
+                                    Participants = new List<User>()
+                                    {
+                                        user1,
+                                        user2
+                                    },
+                                    PricePerOne = 5000,
+                                    TotalPrice = 10000,
+                                    Payers = new List<User>()
+                                    {
+                                        user2
+                                    },
+                                }
+                            }
+
+                        },                        
+                        new TripDay()
+                        {
+                            Number = 4,
+                            Activities = new List<Activiti>()
+                            {
+                                new Activiti()
+                                {
+                                    Title = "Водопады",
+                                    FromSearch = false,
+                                    Category = category7,
+                                    Participants = new List<User>()
+                                    {
+                                        user1,
+                                        user3
+                                    },
+                                    PricePerOne = 200,
+                                    TotalPrice = 400,
+                                    Payers = new List<User>()
+                                    {
+                                        user2
+                                    },
+                                },
+                                new Activiti()
+                                {
+                                    Title = "Большой театр",
+                                    FromSearch = true,
+                                    Category = category8,
+                                    Participants = new List<User>()
+                                    {
+                                        user1,
+                                        user2
+                                    },
+                                    PricePerOne = 5000,
+                                    TotalPrice = 10000,
+                                    Payers = new List<User>()
+                                    {
+                                        user2
+                                    },
+                                }
+                            }
+
+                        },
+                        new TripDay()
+                        {
+                            Number = 4,
+                            Activities = new List<Activiti>()
+                            {
+                                new Activiti()
+                                {
+                                    Title = "Магниты",
+                                    FromSearch = false,
+                                    Category = category9,
+                                    Participants = new List<User>()
+                                    {
+                                        user1,
+                                        user3
+                                    },
+                                    PricePerOne = 200,
+                                    TotalPrice = 400,
+                                    Payers = new List<User>()
+                                    {
+                                        user2
+                                    },
+                                },
+                                new Activiti()
+                                {
+                                    Title = "Бензин",
+                                    FromSearch = true,
+                                    Category = category10,
                                     Participants = new List<User>()
                                     {
                                         user1,
